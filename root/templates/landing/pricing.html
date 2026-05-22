@@ -1,0 +1,107 @@
+{%extends "landing/base.html"%}
+
+{%block title%}Pricing{% endblock %}
+{%block title2%}Pricing{% endblock %}
+
+{%block content%}
+  <section>
+      <div class="max-w-7xl mx-auto px-6 py-20 text-center">
+        <h1 class="text-4xl font-bold">Simple, Transparent Pricing</h1>
+        <p class="mt-4 text-gray-400 max-w-2xl mx-auto">
+          Flexible subscription plans for individuals, developers, institutions, and enterprises building AI agents for education and research.
+        </p>
+        <p class="mt-2 text-sm text-gray-500">Pay-as-you-go support coming soon.</p>
+      </div>
+    </section>
+    <!-- Pricing Cards -->
+    <section>
+      <div class="max-w-7xl mx-auto px-6 pb-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><!-- Free Plan -->
+      <div class="bg-[#0F1621] border border-gray-800 rounded-2xl p-6 flex flex-col">
+        <h3 class="text-lg font-semibold">Free</h3>
+        <p class="text-sm text-gray-400 mt-1">For exploration & learning</p>
+        <p class="mt-6 text-3xl font-bold">₦0</p>
+        <p class="text-xs text-gray-500">Forever free</p>
+        <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+          <li>• 10M total lifetime tokens</li>
+          <li>• 2M daily token limit</li>
+          <li>• 1 active AI agent</li>
+          <li>• 1,000 API calls / day</li>
+          <li>• Community support</li>
+        </ul>
+        <button class="mt-6 w-full py-2 rounded-lg border border-gray-700 hover:bg-gray-800">Get Started</button>
+      </div>
+
+    <!-- Developer Plan -->
+    <div class="bg-[#0F1621] border border-indigo-600/50 rounded-2xl p-6 flex flex-col">
+      <h3 class="text-lg font-semibold">Developer</h3>
+      <p class="text-sm text-gray-400 mt-1">For builders & startups</p>
+      <p class="mt-6 text-3xl font-bold">₦15,000<span class="text-sm font-normal text-gray-400">/mo</span></p>
+      <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+        <li>• 100M monthly tokens</li>
+        <li>• 5M daily token limit</li>
+        <li>• Up to 5 active agents</li>
+        <li>• 50,000 API calls / day</li>
+        <li>• Webhook & API access</li>
+        <li>• Email support</li>
+      </ul>
+      <button class="mt-6 w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700">Choose Plan</button>
+    </div>
+
+    <!-- Professional Plan -->
+    <div class="bg-[#0F1621] border border-gray-800 rounded-2xl p-6 flex flex-col">
+      <h3 class="text-lg font-semibold">Professional</h3>
+      <p class="text-sm text-gray-400 mt-1">For educators & researchers</p>
+      <p class="mt-6 text-3xl font-bold">₦45,000<span class="text-sm font-normal text-gray-400">/mo</span></p>
+      <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+        <li>• 500M monthly tokens</li>
+        <li>• 20M daily token limit</li>
+        <li>• Up to 20 active agents</li>
+        <li>• 250,000 API calls / day</li>
+        <li>• Advanced analytics</li>
+        <li>• Priority support</li>
+      </ul>
+      <button class="mt-6 w-full py-2 rounded-lg border border-gray-700 hover:bg-gray-800">Choose Plan</button>
+    </div>
+
+    <!-- Corporate Plan -->
+    <div class="bg-[#0F1621] border border-gray-800 rounded-2xl p-6 flex flex-col">
+      <h3 class="text-lg font-semibold">Corporate</h3>
+      <p class="text-sm text-gray-400 mt-1">For institutions & enterprises</p>
+      <p class="mt-6 text-3xl font-bold">Custom</p>
+      <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+        <li>• Unlimited tokens*</li>
+        <li>• Custom daily limits</li>
+        <li>• Unlimited AI agents</li>
+        <li>• Dedicated infrastructure</li>
+        <li>• SLA & compliance support</li>
+        <li>• Dedicated account manager</li>
+      </ul>
+      <button class="mt-6 w-full py-2 rounded-lg border border-gray-700 hover:bg-gray-800">Contact Sales</button>
+    </div>
+
+  </div>
+
+    </section>  <!-- Billing Cycle -->  <section class="border-t border-gray-800">
+      <div class="max-w-5xl mx-auto px-6 py-20">
+        <h2 class="text-2xl font-semibold text-center">Save More with Longer Commitments</h2>
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div class="bg-[#0F1621] border border-gray-800 rounded-xl p-6">
+            <p class="font-medium">Monthly</p>
+            <p class="text-sm text-gray-400 mt-2">Standard pricing</p>
+          </div>
+          <div class="bg-[#0F1621] border border-gray-800 rounded-xl p-6">
+            <p class="font-medium">Quarterly</p>
+            <p class="text-sm text-green-400 mt-2">Save 5%</p>
+          </div>
+          <div class="bg-[#0F1621] border border-gray-800 rounded-xl p-6">
+            <p class="font-medium">Biannual</p>
+            <p class="text-sm text-green-400 mt-2">Save 10%</p>
+          </div>
+          <div class="bg-[#0F1621] border border-gray-800 rounded-xl p-6">
+            <p class="font-medium">Annual</p>
+            <p class="text-sm text-green-400 mt-2">Save 20%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

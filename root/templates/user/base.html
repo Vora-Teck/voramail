@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      <meta name="title" content="VoraMX - {% block title2 %}{% endblock %}">
+      <meta name="description" content="">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <link rel="apple-touch-icon" href="/static/logos/logo.png" />
+      <link rel="shortcut icon" href="/static/logos/logo.png" />
+      <title>VoraMX - {% block title %}{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/rigan.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/sweetalert.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/dist/semantic.min.css">
+
+    <!-- Javascript -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/dist/semantic.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/sweetalert.min.js"></script>
+    <script src="/static/js/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/tailwind.min.js"></script>
+    <script src="/static/js/apexcharts.js"></script>
+    <script src="/static/js/chart.js"></script>
+
+    <body>
+
+      <div id="toastContainer" class="fixed top-6 right-6 space-y-3 z-[10000]"></div>
+
+      <div id="loading-overlay" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[1500]">
+        <div class="text-center">
+          <div class="w-16 h-16 border-4 border-zinc-700 border-t-emerald-500 rounded-full animate-spin mx-auto"></div>
+          <p id="loading-text" class="mt-6 text-emerald-400 font-medium"></p>
+          <div class="w-64 h-1 bg-zinc-800 rounded-full mt-6 overflow-hidden">
+            <div id="progress-bar" class="h-1 bg-emerald-500 w-0 transition-all duration-300"></div>
+          </div>
+        </div>
+      </div>
+
+        <div class="dashboard-container">
+            <!-- Dashboard Sidebar -->
+            <aside class="dashboard-sidebar" id="dashboardSidebar">
+                <div class="dashboard-brand">
+                  <button class="dashboard-sidebar-toggle">
+                    <span class="fa fa-navicon"></span>
+                  </button>
+                  <a class="logo">
+                    <img src="/static/logos/name.png" alt="" style="height:20px;width:auto;">
+                    
+                  </a>
+                </div>
+        
+                <nav class="dashboard-nav">
+                  <div class="dashboard-nav-section">
+                    <a href="/dashboard" class="dashboard-nav-item dash-act" data-view="overview">
+                      <span class="nav-icon fa fa-th-large"></span>
+                      <span class="nav-label">Overview</span>
+                    </a>
+                    <a href="/email-accounts" class="dashboard-nav-item pro-act" data-view="projects">
+                      <span class="nav-icon fa fa-android"></span>
+                      <span class="nav-label">Email Accounts</span>
+                    </a>
+                    <a href="/api_usage" class="dashboard-nav-item pay-act" data-view="payments">
+                      <span class="nav-icon fa fa-server"></span>
+                      <span class="nav-label">API Usage</span>
+                    </a>
+                    <a href="/analytics" class="dashboard-nav-item ana-act" data-view="analytics">
+                      <span class="nav-icon fa fa-bar-chart"></span>
+                      <span class="nav-label">Analytics</span>
+                    </a>
+                    <a href="/sandbox" class="dashboard-nav-item sand-act" data-view="analytics">
+                      <span class="nav-icon fa fa-laptop"></span>
+                      <span class="nav-label">Sandbox</span>
+                    </a>
+                    <a href="/settings" class="dashboard-nav-item set-act" data-view="settings">
+                      <span class="nav-icon fa fa-gear"></span>
+                      <span class="nav-label">Settings / API Keys</span>
+                    </a>
+
+                    <a href="/docs" target="_blank" class="dashboard-nav-item api-act" data-view="settings">
+                      <span class="nav-icon fa fa-code"></span>
+                      <span class="nav-label">API Documentation</span>
+                    </a>
+                  </div>
+                </nav>
+        
+                <!-- Back to Site Button -->
+                <div class="sidebar-footer">
+                  <a href="#" class="logout-btn btn btn-secondary sidebar-back-button">
+                    <span class="fa fa-power-off"></span>
+                    <span class="btn-label">Logout</span>
+                  </a>
+                </div>
+            </aside>
+        
+            <div class="dashboard-sidebar-overlay" id="dashboardSidebarOverlay"></div>
+        
+            <main class="dashboard-main">
+
+                <!-- Dashboard Header -->
+                <header class="dashboard-header">
+                    <!-- Header Content -->
+                    <div class="dashboard-header-content">
+                    <button class="dashboard-sidebar-toggle">
+                        <span class="fa fa-navicon"></span>
+                    </button>
+                    <h1 class="dashboard-header-title" id="dashboardTitle">Overview</h1>
+                    </div>
+
+                    <!-- Search Container -->
+                    <div class="search-container" id="searchContainer">
+                    <span class="search-icon fa fa-search"></span>
+                    <input type="search" class="search-input form-input" placeholder="Search projects, tasks, reports..." id="searchInput" />
+                    <button class="search-close btn" id="searchClose">
+                        <span class="fa fa-times"></span>
+                    </button>
+                    </div>
+
+                    <!-- Header Actions -->
+                    <div class="dashboard-header-actions">
+                    <!-- Mobile Search Button -->
+                    <button class="mobile-search-btn btn btn-ghost" id="mobileSearchBtn">
+                        <span class="fa fa-search"></span>
+                    </button>
+
+                    <!-- Notification Button -->
+                    <div class="notification-button">
+                        <span class="fa fa-bell-o"></span>
+                        <div class="notification-badge">3</div>
+                    </div>
+
+                    <!-- User Profile -->
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-menu-trigger" id="user-menu-trigger">
+                        <div class="user-avatar-small">
+                            <img src="/static/image/avatar.png" alt="User Avatar" />
+                        </div>
+                        </div>
+                        <div class="user-menu-dropdown" id="user-menu-dropdown">
+                        <a href="/settings" class="user-menu-item">
+                            <span class="icon fa fa-user"></span>
+                            <span>Profile</span>
+                        </a>
+                        <!-- Theme Toggle inside dropdown -->
+                        <div class="user-menu-item theme-item">
+                            <span class="icon fa fa-paint-brush"></span>
+                            <div class="theme-toggle" id="theme-toggle">
+                            <div class="theme-option active" data-theme="light">Light</div>
+                            <div class="theme-option" data-theme="dark">Dark</div>
+                            </div>
+                        </div>
+                        <a href="#" class="logout-btn user-menu-item">
+                            <span class="icon fa fa-power-off"></span>
+                            <span>Sign Out</span>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </header>
+
+                <!-- Dashboard Content -->
+                <div class="dashboard-content">
+                    {%block content%}{% endblock %}
+                </div>
+
+            </main>
+
+        </div>
+
+
+        <div class="modal-con">
+          <div class="modal-body">
+            <div class="modal-header">
+              Hello, World
+            </div>
+            <div class="modal-content">
+        
+            </div>
+        
+            <div class="modal-footer">
+              <button class="canc-btn btn btn-secondary">Cancel</button>
+              <button class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <script src="/static/js/functions.js"></script>
+        <script src="/static/js/script.js"></script>
+        {%block script%}{% endblock %}
+
+        <script>
+          $(".canc-btn").click(function(e) {
+            e.preventDefault();
+            $(this).parent('.modal-footer').parent(".modal-body").parent(".modal-con").removeClass('active')
+          })
+          $(".copy-btn").click(function(e) {
+            e.preventDefault();
+            let value = $(this).siblings("input").val();
+            copyText(value)
+          })
+          $(".view-btn").click(function(e) {
+            e.preventDefault();
+            let inp = $(this).siblings("input");
+            inp.attr('type', inp.attr('type') == "text" ? 'password' : 'text')
+          })
+        </script>
+
+    </body>
+
+</html>

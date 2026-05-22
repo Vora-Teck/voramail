@@ -1,0 +1,185 @@
+{%extends "landing/base.html"%}
+
+{%block title%}{% endblock %}
+{%block title2%}{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+<style>
+  .hero-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+}
+</style>
+{%block content%}
+
+
+    <!-- Hero -->
+  <section class="hero-bg flex items-center pt-20">
+    <div class="max-w-7xl mx-auto px-6 py-20 pt-10 grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1.5 text-sm">
+          <span class="text-emerald-400">●</span>
+          Now in Beta
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tighter">
+          Email that just <span class="text-emerald-400">works</span>.<br>
+          Built for developers.
+        </h1>
+        
+        <p class="text-xl text-zinc-400 max-w-lg">
+          The simple, free, and reliable email API for indie hackers, startups, and growing teams. 
+          Send transactional and marketing emails without the complexity.
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <button onclick="location.href='/dashboard'" 
+                  class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 rounded-3xl font-semibold text-lg flex items-center gap-3 transition">
+            Start Sending Emails Free
+            <i class="fas fa-arrow-right"></i>
+          </button>
+          
+          <a href="/docs" class="px-8 py-4 border border-zinc-700 hover:border-zinc-500 rounded-3xl font-semibold text-lg transition flex items-center gap-3">
+            View Docs
+          </a>
+        </div>
+        
+        <div class="flex items-center gap-8 text-sm text-zinc-400">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check text-emerald-400"></i>
+            Free forever tier
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check text-emerald-400"></i>
+            No credit card needed
+          </div>
+        </div>
+      </div>
+      
+      <div class="relative">
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-6 shadow-2xl">
+          <div class="bg-zinc-950 rounded-2xl p-6 font-mono text-sm">
+            <div class="text-emerald-400 mb-2">$ curl -X POST https://mx.vorateck.com.ng/api/send-mail</div>
+            <pre class="text-zinc-400 overflow-hidden">{
+  "to": "user@example.com",
+  "subject": "Welcome to VoraMX!",
+  "content": "&lt;h1&gt;Hello!&lt;/h1&gt;"
+}</pre>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 bg-emerald-500 text-zinc-950 px-6 py-3 rounded-2xl font-semibold flex items-center gap-3 shadow-xl">
+          <i class="fas fa-bolt"></i>
+          99.9% Delivery Rate
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 bg-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Everything you need.<br>Nothing you don't.</h2>
+        <p class="text-zinc-400 text-lg">Simple, powerful, and developer-first.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">✉️</div>
+          <h3 class="text-2xl font-semibold mb-3">Transactional Emails</h3>
+          <p class="text-zinc-400">Welcome emails, password resets, order confirmations — delivered fast and reliably.</p>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">📊</div>
+          <h3 class="text-2xl font-semibold mb-3">Analytics &amp; Webhooks</h3>
+          <p class="text-zinc-400">Real-time delivery tracking, opens, clicks, and instant webhooks.</p>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">📧</div>
+          <h3 class="text-2xl font-semibold mb-3">Bulk &amp; Marketing</h3>
+          <p class="text-zinc-400">Send campaigns with templates, suppression lists, and easy segmentation.</p>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">🔌</div>
+          <h3 class="text-2xl font-semibold mb-3">SMTP + REST API</h3>
+          <p class="text-zinc-400">Use whichever you prefer. Full SDKs for Node, Python, PHP, etc.</p>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">🛡️</div>
+          <h3 class="text-2xl font-semibold mb-3">Spam Protection</h3>
+          <p class="text-zinc-400">Built-in DKIM, SPF, DMARC and smart throttling.</p>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 transition group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-2xl">⚡</div>
+          <h3 class="text-2xl font-semibold mb-3">Lightning Fast Setup</h3>
+          <p class="text-zinc-400">Get your first email sent in under 2 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16">Loved by developers building in public</h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+          <p class="italic text-zinc-300">"VoraMX replaced SendGrid for me. It's actually free, the API is clean, and emails land in inbox every time."</p>
+          <div class="mt-8 flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-700 rounded-full"></div>
+            <div>
+              <div class="font-medium">@iamdillion</div>
+              <div class="text-sm text-zinc-500">Indie Hacker</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+          <p class="italic text-zinc-300">"The simplest email service I've used. Perfect for my SaaS side projects. No nonsense, just works."</p>
+          <div class="mt-8 flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-700 rounded-full"></div>
+            <div>
+              <div class="font-medium">Sarah Chen</div>
+              <div class="text-sm text-zinc-500">Founder, GrowthFlow</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+          <p class="italic text-zinc-300">"Setup took 5 minutes. Analytics are great. Finally a free tier that doesn't suck."</p>
+          <div class="mt-8 flex items-center gap-3">
+            <div class="w-10 h-10 bg-zinc-700 rounded-full"></div>
+            <div>
+              <div class="font-medium">Marcus Okoro</div>
+              <div class="text-sm text-zinc-500">CTO, Lagos Startup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-emerald-600 text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-5xl font-bold mb-6">Ready to start sending?</h2>
+      <p class="text-xl text-emerald-100 mb-10">Join hundreds of developers sending millions of emails every month — completely free on beta.</p>
+      
+      <button onclick="location.href='/login'" 
+              class="px-10 py-5 bg-white text-emerald-700 rounded-3xl font-semibold text-xl hover:scale-105 transition">
+        Create Free Account
+      </button>
+      
+      <p class="text-sm mt-6 text-emerald-100">No credit card required • Cancel anytime</p>
+    </div>
+  </section>
+
+    
+{% endblock %}

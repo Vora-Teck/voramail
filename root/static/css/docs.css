@@ -1,0 +1,113 @@
+body { 
+    margin:0;
+    background:#020617; 
+    color:#e5e7eb; 
+    font-family:Inter,system-ui; 
+}
+html {
+    --body-height: calc(100vh);
+    --sidebar-width: 250px;
+}
+.layout { 
+    display:flex; 
+    height:100vh; 
+}
+footer {
+    display: none;
+}
+
+/* Sidebar */
+.sidebar { 
+    width: var(--sidebar-width); 
+    background:#020617; 
+    border-right:1px solid #1e293b; 
+    padding:25px 15px; 
+    height: var(--body-height); 
+    overflow-y: auto;
+}
+.logo { 
+    font-size:20px; 
+    font-weight:700; 
+    color:#6366f1; 
+    margin-bottom:32px; 
+}
+.nav a { 
+    display:block; 
+    color:#c7d2fe; 
+    padding:10px 10px; 
+    text-decoration:none; 
+    font-size:14px; 
+}
+.nav a:hover { color:#fff; }
+
+/* Style the sidenav links and the dropdown button */
+a.dropdown-btn {
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+/* Add an active class to the active dropdown button */
+nav a.active {
+    color: white;
+    background: #000;
+  }
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+    display: block;
+    height: auto;
+    overflow-y: hidden;
+    transition: .5s all ease-in-out;
+    background-color: transparent;
+    padding-left: 20px;
+  }
+  .dropdown-container.close {
+    height: 0px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  
+/* Content */
+.content { 
+    width: calc(100% - var(--sidebar-width)); 
+    flex:1; 
+    padding:48px;
+    height: var(--body-height); 
+    overflow-y: auto;
+}
+h1,h2,h3 { color:#f8fafc; margin-top:40px; }
+p { line-height:1.75; }
+.section { margin-bottom:48px; }
+
+/* Cards */
+.card { background:#020617; border:1px solid #1e293b; border-radius:12px; padding:24px; margin-top:20px; }
+
+    /* Endpoint badge */
+    .badge { display:inline-block; padding:6px 12px; border-radius:999px; font-size:12px; background:#1e293b; color:#a5b4fc; margin-right:8px; }
+
+    /* Code */
+    pre { border-radius:12px; padding:16px; overflow:auto; }
+
+    /* Switchers */
+    .tabs { display:flex; gap:8px; margin-bottom:12px; }
+    .tab { padding:6px 12px; border-radius:999px; background:#020617; border:1px solid #1e293b; cursor:pointer; font-size:13px; }
+    .tab.active { background:#6366f1; border-color:#6366f1; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .sidebar { display:none; }
+      .content { padding:24px; }
+    }

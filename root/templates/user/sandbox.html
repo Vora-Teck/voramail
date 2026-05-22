@@ -1,0 +1,82 @@
+
+{%extends "user/base.html"%}
+
+{%block title%}Sandbox{% endblock %}
+{%block title2%}Sandbox{% endblock %}
+
+{%block content%}
+<div>
+  <h1 class="text-2xl font-semibold">Sandbox Environment</h1>
+  <p class="mt-2 text-sm text-gray-400">Test your API request here: <code>BASE_URL: "https://mx.vorateck.com.ng/api"</code></p>
+  </div>
+  <div class="tab-pane-item" id="sandbox-form">
+    <div class="input-con mt-3">
+      <label for="">API URL</label>
+      <input type="text" id="sand_url">
+    </div>
+    <div class="input-con mt-3">
+      <label for="">REQUEST METHOD</label>
+      <select id="sand_method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="DELETE">DELETE</option>
+      </select>
+    </div>
+    <div class="input-con mt-3">
+      <label for="">API KEY</label>
+      <input type="text" id="sand_api">
+    </div>
+    <div class="input-con mt-3">
+      <label for="">SECRET KEY</label>
+      <input type="text" id="sand_secret">
+    </div>
+    <div class="input-con mt-3">
+      <label for="">PAYLOAD</label>
+      <!--
+      <textarea id="sand_payload" rows="10">{}</textarea>
+      -->
+      <div class="breakdown-con">
+                    
+      </div>
+      <button id="add-breakdown-btn" class="btn btn-secondary">
+        <i class="fa fa-plus"></i>&nbsp;&nbsp;Add POST Data
+      </button>
+    </div>
+
+    <button id="make-req-btn" class="btn btn-primary">Make Request</button>
+
+    <ul class="mt-2 nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home">RESPONSE</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu1">REQUEST</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active container" id="home">
+        <div class="input-con mt-3">
+          <textarea id="sand_response" rows="20" readonly></textarea>
+        </div>
+      </div>
+      <div class="tab-pane container" id="menu1">
+        <div class="input-con mt-3">
+          <textarea id="sand_request" rows="20" readonly></textarea>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="/static/js/sandbox.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Sandbox`)
+        $(".sand-act").addClass('active')
+      </script>
+{% endblock %}

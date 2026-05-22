@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/static/logos/logo.png" />
+    <link rel="shortcut" href="/static/logos/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/rigan.css">
+    <link rel="stylesheet" type="text/css" href="/static/themes/w-theme-blue.css">
+    <link rel="stylesheet" type="text/css" href="/static/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/sweetalert.min.css">
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/toastify.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/owl.carousel.min.js"></script>
+    <script src="/static/js/toastify.min.js"></script>
+    <script src="/static/js/sweetalert.min.js"></script>
+    <script src="/static/dist/semantic.min.js"></script> 
+    <title>Eduka AI - Login</title>
+
+</head>
+<body>
+    <div class="page-load">
+        <div class="loader-con w-card">
+          <img src="/static/logos/loader.gif" alt="" style="width:220px;height:auto;" />
+            <!--
+          <div class="loader"></div>
+          -->
+            <div id="loader-text"></div>
+        </div>
+      </div>
+
+
+    <script src="/static/js/functions.js"></script>
+
+    <main class="log-page">
+        <div class="row">
+            <div class="carou col col-12 col-sm-12 col-md-5 col-lg-5 col-xl-4">
+                
+                <div class="carou-con">
+                    <img class="logo-img" src="/static/logos/logo.png" alt="" />
+                    <div class="h1 w-text-white">Eduka AI</div>
+                    <div class="carou-content h1">
+                        Hi! Welcome
+                    </div>
+
+                    <p class="w-text-white">Not a member yet? Register Here</p>
+                    <button class="btn btn-primary btn-lg regi-btn">Register</button>
+                    <p class="copyright w-text-white w-bold">Copyright &copy; Eduka.</p>
+                </div>
+            </div>
+    
+            <div class="login-page col col-12 col-sm-12 col-md-7 col-lg-7 col-xl-8">
+                
+                    <form class="item login-form" id="login-form">
+                        
+                        <h2 class="w-bold-x mt-3">Login</h2>
+                        <p class="w-text-gray">Log in to your account.</p>
+    
+                        <div class="input-con">
+                            <label for="username">Email</label>
+                            <input type="email" id="email" placeholder="" required />
+                        </div>
+                        <div class="input-con">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="" required />
+                        </div>
+                        <div class="input-con">
+                            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                        </div>
+                    </form>
+    
+            </div>
+        </div>
+    </main>
+
+    <main class="reg-page">
+        <div class="row">
+            <div class="carou col col-12 col-sm-12 col-md-5 col-lg-5 col-xl-4">
+                
+                <div class="carou-con">
+                    <img class="logo-img" src="/static/logos/logo.png" alt="" />
+                    <div class="h1 w-text-white">Eduka AI</div>
+                    <div class="carou-content h1">
+                        Hi! Welcome
+                    </div>
+
+                    <p class="w-text-white">Already have an account? Login Here</p>
+                    <button class="btn btn-primary btn-lg log-btn">Log In</button>
+                    
+                    <p class="copyright w-text-white w-bold">Copyright &copy; Eduka.</p>
+                </div>
+            </div>
+    
+            <div class="login-page col col-12 col-sm-12 col-md-7 col-lg-7 col-xl-8">
+                
+                    <form class="item login-form" id="register-form">
+                        
+                        <h2 class="w-bold-x mt-3">Signup</h2>
+                        <p class="w-text-gray">Set up your account.</p>
+    
+                        <div class="input-con">
+                            <label for="username">Email</label>
+                            <input type="email" id="email2" placeholder="e.g example@domail.com" required />
+                        </div>
+                        <div class="input-con">
+                            <label for="password">Password</label>
+                            <input type="password" id="password2" placeholder="" required />
+                        </div>
+                        
+                        <div class="input-con">
+                            <label for="password">Confirm your Password</label>
+                            <input type="password" id="cpassword2" placeholder="" required />
+                        </div>
+                        <div class="mb-3 w-text-yellow w-flex w-flex-start w-align-start" style="gap:5px;">
+                            <i class="fa fa-info-circle"></i>
+                            <span>Your password must be at least 8 characters containing letters (a-z), digits (0-9) and/or special characters</span>
+                        </div>
+                        <div class="input-con">
+                            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                        </div>
+                    </form>
+    
+            </div>
+        </div>
+    </main>
+    
+    <script type="module" src="/static/js/login.js"></script>
+</body>
+</html>

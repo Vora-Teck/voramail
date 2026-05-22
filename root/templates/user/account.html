@@ -1,0 +1,202 @@
+{%extends "user/base.html"%}
+
+{%block title%}Email Accounts{% endblock %}
+{%block title2%}Email Accounts{% endblock %}
+
+{%block content%}
+
+<div class="modal-con small-con add-account-con">
+  <form class="modal-body add-account-form">
+
+    <div class="modal-header">
+      Add A New Email Account
+    </div>
+
+    <div class="modal-content">
+      <div class="input-con">
+            <label for="">Account Name</label>
+            <p class="muted">This will be the display name shown in your customers' inbox</p>
+            <input type="text" id="account_name" placeholder="give your account a name...">
+      </div>
+      <div class="input-con">
+            <label for="">Email Address</label>
+            <p class="muted">Email account from which the mails will be sent. Unless you are using email from a custom domain, it is recommended you use a gmail account.</p>
+            <input type="email" id="account_username" placeholder="e.g example@domain.com">
+      </div>
+      <div class="input-con">
+            <label for="">Email Host Provider</label>
+            <p class="muted">This specifies what type of email account you are using.</p>
+            <select id="account_host">
+              {%for s in smtp_hosts%}
+              <option value="{{ s.smtp_host }}">{{ s.provider }} - {{ s.smtp_host }}</option>
+              {%endfor%}
+            </select>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn canc-btn btn-secondary">Cancel</button>
+      <button type="submit" class="btn btn-primary">Create Account</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="dashboard-view agent-view" id="accounts">
+  <button class="mb-3 btn bg-emerald-500 add-account-btn">Create An Email Account <i class="fa fa-plus"></i></button>
+  <div class="w-hide account-list stats-grid"></div>
+
+  <div class="w-hide empty-state">
+    <div class="empty-state-icon">
+      <span class="text-emerald-500 w-large fa fa-envelope"></span>
+    </div>
+    <h3 class="empty-state-title">Email Accounts</h3>
+    <p class="empty-state-description">Create and manage your Email Accounts here.</p>
+    <button class="btn bg-emerald-500 add-account-btn">Create An Email Account <i class="fa fa-plus"></i></button>
+  </div>
+</div>
+
+
+<div class="dashboard-view agent-view" id="account_settings">
+
+  <a href="/email-accounts">
+    <button class="btn btn-primary mb-3">
+      <i class="fa fa-chevron-left"></i>&nbsp;Back
+    </button>
+  </a>
+
+  <h3 class="account_full p-2"></h3>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Account Settings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">API Settings</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active container" id="home">
+
+      <form class="tab-pane-item account-info-form mt3">
+        <h4 class="mb-2">Account Info</h4>
+
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">Display Name</label>
+              <input type="text" id="ac_name">
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">Account ID</label>
+              <div class="input-group">
+                <input type="text" id="ac_id" readonly>
+                <div class="input-group-append copy-btn">
+                  <span class="input-group-text"><i class="fa fa-copy"></i>&nbsp;copy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">SMTP Username</label>
+              <input type="email" id="ac_username">
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">SMTP Provider / Host</label>
+              <select id="ac_host">
+              {%for s in smtp_hosts%}
+              <option value="{{ s.smtp_host }}">{{ s.provider }} - {{ s.smtp_host }}</option>
+              {%endfor%}
+            </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">SMTP Port / Encryption</label>
+              <input type="text" id="ac_port" readonly >
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">SMTP Password</label>
+              <p class="muted p-2">Your app password is encrypted at rest. 
+                <a href="" class="text-yellow-300" id="ac_learn" target="_blank" rel="noopener noreferrer">Click here</a> to know how to get your app password from your email provider
+              </p>
+              <div class="input-group">
+                <input type="password" id="ac_pass">
+                <div class="input-group-append view-btn">
+                  <span class="input-group-text"><i class="fa fa-eye"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+
+      </form>
+
+    </div>
+
+    <div class="tab-pane container" id="menu1">
+      <form class="account-api-form mt3">
+
+        <div class="tab-pane-item">
+          <h4 class="mb-2">WEBHOOKS</h4>
+        
+        <div class="input-con mt-3">
+          <label for="">Webhook URL</label>
+          <ul class="muted">
+            <li>Webhook is used to receive updates on emails that are sent.</li>
+            <li>Usually, when an API is called to send emails, the request is queued up and when the status changed (such as sent successfuuly or failed) a response is returned as webhook.</li>
+            <li>Kindly ensure that your webhook URL accepts <code>POST</code> requests</li>
+          </ul>
+          <input type="text" id="ac_callback">
+        </div>
+
+        <div class="input-con">
+          <label for="">IP Whitelist <i class="fa fa-info-circle"></i></label>
+          <ul class="muted">
+            <li>IP whitelisting ensure that only specific IP addresses can make API requests on your behalf</li>
+            <li>Separate multiple IPs with comma (,)</li>
+            <li>If no IP is provided, this means that all IPs will be allowed.</li>
+          </ul>
+          <input type="text" id="ac_ip" placeholder="e.g 127.0.0.1, 198.127.45.6">
+        </div>
+
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <h5 class="w-center mt-3">Need help with your integration?</h5>
+      <p class="w-center w-text-yellow"><a href="/docs" target="_blank">Check out our API documentation</a></p>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="module" src="/static/js/accounts.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Email Accounts`)
+        $(".pro-act").addClass('active')
+      </script>
+{% endblock %}

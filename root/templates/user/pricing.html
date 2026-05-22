@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+
+{%block title%}Pricing{% endblock %}
+{%block title2%}Pricing{% endblock %}
+
+{%block content%}
+
+<div class="dashboard-view" id="pricing">
+  <div class="empty-state">
+    <div class="empty-state-icon">
+      <span class="material-symbols-rounded">attach_money</span>
+    </div>
+    <h3 class="empty-state-title">Pricing</h3>
+    <p class="empty-state-description">View detailed pricing best suited for your use case.</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="/static/js/sample.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Pricing`)
+        $(".pri-act").addClass('active')
+      </script>
+{% endblock %}

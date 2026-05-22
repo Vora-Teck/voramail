@@ -1,0 +1,108 @@
+{%extends "user/base.html"%}
+
+{%block title%}Settings{% endblock %}
+{%block title2%}Settings{% endblock %}
+
+{%block content%}
+
+<div class="dashboard-view" id="settings">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">User Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">API Keys</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active container" id="home">
+
+      <form class="tab-pane-item pass-form mt3">
+        <h4 class="mb-2">Change Password</h4>
+
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">Old Password</label>
+              <input type="password" id="old_pass">
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">New Password</label>
+              <input type="password" id="new_pass">
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="input-con mt-3">
+              <label for="">Confirm New Password</label>
+              <input type="password" id="cnew_pass">
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Save Changes</button>
+
+      </form>
+
+    </div>
+
+    <div class="tab-pane container" id="menu2">
+
+      <div class="tab-pane-item">
+        <h4 class="mb-2">API KEYS</h4>
+
+        <div class="input-con mt-3">
+          <label for="">API Key</label>
+          <div class="input-group">
+            <input type="password" id="api_key" readonly>
+            <div class="input-group-append copy-btn">
+              <span class="input-group-text"><i class="fa fa-copy"></i>&nbsp;copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-con">
+          <label for="">Secret Key</label>
+          <ul class="muted">
+            <li>To generate your secret key, kindly click the <b><q>Generate Key</q></b> button below.</li>
+            <li>Once your secret key is generated, kindly copy or store somewhere safe as you will not be able to view it again after closing/reloading this page.</li>
+            <li>If your secret key is compromised or you forgot, you can always generate a new key here.</li>
+            <li>Generating a new secret key will invalidate other previous secret keys.</li>
+          </ul>
+          <div class="input-group secret-input">
+            <input type="password" id="secret_key" readonly>
+            <div class="input-group-append copy-btn">
+              <span class="input-group-text"><i class="fa fa-copy"></i>&nbsp;copy</span>
+            </div>
+          </div>
+          <button class="btn btn-primary gen-btn mt-3">Generate Key</button>
+        </div>
+
+      </div>
+
+      <br>
+
+      <h5 class="w-center mt-3">Need help with your integration?</h5>
+      <p class="w-center w-text-yellow"><a href="/docs" target="_blank">Check out our API documentation</a></p>
+
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="module" src="/static/js/settings.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Settings`)
+        $(".set-act").addClass('active')
+      </script>
+{% endblock %}

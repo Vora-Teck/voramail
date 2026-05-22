@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      <meta name="title" content="Eduka AI - {% block title2 %}{% endblock %}">
+      <meta name="description" content="">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <link rel="apple-touch-icon" href="/static/logos/logo.png" />
+      <link rel="shortcut icon" href="/static/logos/logo.png" />
+      <title>VoraMX - {% block title %}{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <!-- Google Fonts -->
+    <script src="/static/js/tailwind.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/rigan.css">
+    <link rel="stylesheet" href="/static/dist/semantic.min.css">
+    <link rel="stylesheet" href="/static/css/toastify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+
+    <!-- Javascript -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/toastify.min.js"></script>
+    <script src="/static/dist/semantic.min.js"></script>
+    
+    <script src="/static/js/apexcharts.js"></script>
+    <script src="/static/js/chart.js"></script>
+
+    
+
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      @media screen and (min-width: 768px) {
+        #sidebar {display: none}
+        .nav-btns {display: none !important}
+      }
+      @media screen and (max-width: 767px) {
+        .log-btns {display:none !important}
+      }
+    </style>
+        
+    {% block head %}{% endblock %}
+
+{% block style %}{% endblock %}
+
+    <body class="bg-zinc-950 text-zinc-100">
+<div id="toastContainer" class="fixed top-6 right-6 space-y-3 z-[10000]"></div>
+
+    <!-- Navbar --> 
+    <header class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div>
+            <img class="h-9 w-9" src="/static/logos/logo.png" alt="">
+          </div>
+          <div>
+            <img class="h-9" src="/static/logos/logo2.png" alt="">
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-gray-400">
+          <a href="/" class="hover:text-white">Platform</a>
+          <!--
+            <a href="/pricing" class="hover:text-white">Pricing</a>
+          -->
+          <a href="/docs" class="hover:text-white">API Docs</a>
+          <a href="/contact" class="hover:text-white">Contact Us</a>
+        </nav>
+        <div class="log-btns flex items-center gap-4">
+          <a href="/login" class="text-sm font-medium hover:text-emerald-400 transition">Log in</a>
+          <a href="/login" 
+             class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 rounded-2xl text-sm font-semibold transition">
+            Get Started
+          </a>
+        </div>
+        <div class="nav-btns flex gap-3">
+          <a href="/login" 
+             class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 rounded-2xl text-sm font-semibold transition">
+            Get Started
+          </a>
+          <button id="toggleSidebar" class="text-xl"><i class="fa fa-navicon"></i></button>
+        </div>
+        
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="bg-[#0F1621] border-r border-gray-800 transition-all duration-300 w-64 fixed inset-y-0 left-0 z-40 min-h-screen">
+      <div class="flex items-center gap-3 px-6 py-5 border-b border-gray-800">
+        <div class="h-9 w-9 rounded-lg">
+          <img src="/static/logos/logo.png" alt="">
+        </div>
+        <span class="font-semibold text-lg sidebar-text">VoraMX</span>
+      </div>
+      <nav class="mt-6 space-y-1">
+        <a class="flex items-center gap-4 px-6 py-3 text-sm hover:bg-[#0B0F14]" href="/">
+          <span class="fa fa-home"></span><span class="sidebar-text">Platform</span>
+        </a>
+        <!--
+          <a class="flex items-center gap-4 px-6 py-3 text-sm hover:bg-[#0B0F14]" href="/pricing">
+          <span class="fa fa-dollar"></span><span class="sidebar-text">Pricing</span>
+        </a>
+        -->
+        <a class="flex items-center gap-4 px-6 py-3 text-sm hover:bg-[#0B0F14]" href="/docs">
+          <span class="fa fa-code"></span><span class="sidebar-text">API Docs</span>
+        </a>
+        <a class="flex items-center gap-4 px-6 py-3 text-sm hover:bg-[#0B0F14]" href="/contact">
+          <span class="fa fa-phone"></span><span class="sidebar-text">Contact Us</span>
+        </a>
+        <a class="flex items-center gap-4 px-6 py-3 text-sm hover:bg-[#0B0F14]" href="/login">
+          <span class="fa fa-lock"></span><span class="sidebar-text">Login/Signup</span>
+        </a>
+      </nav>
+
+    </aside>
+
+    {% block content %}{% endblock %}
+    <!-- Footer -->
+    <footer class="border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+        <div>
+          <img class="h-9" src="/static/logos/logo2.png" alt="">
+        </div>
+        <span>© 2026 VoraMX. All rights reserved.</span>
+        <div class="flex gap-6 mt-4 md:mt-0">
+          <a href="/privacy" class="hover:text-gray-300">Privacy</a>
+          <a href="/privacy" class="hover:text-gray-300">Terms</a>
+          <a href="/contact" class="hover:text-gray-300">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/static/js/functions.js"></script>
+
+    {%block script%}{% endblock %}
+
+    <script>
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.getElementById('toggleSidebar');
+
+      toggle.onclick = () => {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.toggle('w-64');
+          sidebar.classList.toggle('w-20');
+          document.querySelectorAll('.sidebar-text').forEach(el => el.classList.toggle('hidden'));
+        } else {
+          sidebar.classList.toggle('-translate-x-full');
+        }
+      };
+
+      if (window.innerWidth < 768) {
+        sidebar.classList.add('-translate-x-full');
+      }
+    </script>
+    </body>
+
+</html>

@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+
+{%block title%}Analytics{% endblock %}
+{%block title2%}Analytics{% endblock %}
+
+{%block content%}
+
+<div class="dashboard-view" id="analytics">
+  <div class="empty-state">
+    <div class="empty-state-icon">
+      <span class="material-symbols-rounded">bar_chart</span>
+    </div>
+    <h3 class="empty-state-title">Reports</h3>
+    <p class="empty-state-description">Generate detailed reports and analytics. View project performance, team productivity, and time tracking data.</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="/static/js/sample.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Analytics`)
+        $(".ana-act").addClass('active')
+      </script>
+{% endblock %}

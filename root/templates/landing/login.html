@@ -1,0 +1,176 @@
+{%extends "landing/base.html"%}
+
+{%block title%}Login / Signup{% endblock %}
+{%block title2%}Pricing{% endblock %}
+
+{%block content%}
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  @media screen and (min-width: 768px) {
+    #sidebar {display: none}
+    .nav-btns {display: none !important}
+  }
+  @media screen and (max-width: 767px) {
+    .log-btns {display:none !important}
+  }
+  .n_error {background:red;color:#fff}
+.n_success {background:green;color:#fff}
+.n_warning {background:rgb(189, 189, 2);color:#000}
+.n_info {background:rgb(43, 43, 216);color:#fff}
+.n_network {background:orange;color:#000}
+
+
+@keyframes l12 { 
+100%{transform: rotate(.5turn)}
+}
+</style>
+
+
+<div id="loading-overlay" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+  <div class="text-center">
+    <div class="w-16 h-16 border-4 border-zinc-700 border-t-emerald-500 rounded-full animate-spin mx-auto"></div>
+    <p id="loading-text" class="mt-6 text-emerald-400 font-medium"></p>
+    <div class="w-64 h-1 bg-zinc-800 rounded-full mt-6 overflow-hidden">
+      <div id="progress-bar" class="h-1 bg-emerald-500 w-0 transition-all duration-300"></div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-zinc-950 text-zinc-100 min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-md">
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-2xl">
+      
+      <!-- Tabs -->
+      <div class="flex border-b border-zinc-700 mb-8">
+        <button id="tab-login"
+                class="tab-button flex-1 py-4 text-center font-semibold border-b-2 border-emerald-500 text-white">
+          Log In
+        </button>
+        <button id="tab-signup"
+                class="tab-button flex-1 py-4 text-center font-semibold text-zinc-400">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form">
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
+            <input type="email" id="login-email" 
+                  class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                  placeholder="you@example.com" required>
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Password</label>
+            <input type="password" id="login-password" 
+                  class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                  placeholder="••••••••" required>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2">
+              <input type="checkbox" class="w-4 h-4 accent-emerald-500">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="text-emerald-400 hover:underline">Forgot password?</a>
+          </div>
+
+          <button
+                  id="login-btn"
+                  class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold py-4 rounded-2xl transition text-lg">
+            Log In
+          </button>
+        </div>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signup-form" class="hidden">
+        <div class="space-y-6">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">First Name</label>
+              <input type="text" id="fname" 
+                    class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                    placeholder="John">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Last Name</label>
+              <input type="text" id="lname" 
+                    class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                    placeholder="Doe">
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
+            <input type="email" id="signup-email" 
+                  class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                  placeholder="you@example.com">
+          </div>
+          
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Password</label>
+            <input type="password" id="signup-password" 
+                  class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition"
+                  placeholder="Create a strong password">
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Confirm Password</label>
+            <input type="password" id="confirm-password" 
+                  class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500 transition">
+          </div>
+
+          <button type="submit" id="signup-btn"
+                  class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold py-4 rounded-2xl transition text-lg">
+            Create Free Account
+          </button>
+        </div>
+      </form>
+
+      <!-- Divider
+      <div class="relative my-8">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-zinc-700"></div>
+        </div>
+        <div class="relative text-center">
+          <span class="bg-zinc-900 px-4 text-sm text-zinc-500">or continue with</span>
+        </div>
+      </div>
+       -->
+
+      <!-- Social Logins
+      <div class="grid grid-cols-2 gap-4">
+        <button onclick="simulateSocial('Google')" 
+                class="flex items-center justify-center gap-3 border border-zinc-700 hover:border-zinc-500 py-4 rounded-2xl transition">
+          <i class="fab fa-google text-red-500"></i>
+          <span class="font-medium">Google</span>
+        </button>
+        <button onclick="simulateSocial('GitHub')" 
+                class="flex items-center justify-center gap-3 border border-zinc-700 hover:border-zinc-500 py-4 rounded-2xl transition">
+          <i class="fab fa-github"></i>
+          <span class="font-medium">GitHub</span>
+        </button>
+      </div>
+       -->
+
+      <p class="text-center text-xs text-zinc-500 mt-8">
+        By signing up, you agree to our <a href="/privacy" target="_blank" class="text-emerald-400">Terms</a> and <a href="/privacy" target="_blank" class="text-emerald-400">Privacy Policy</a>
+      </p>
+    </div>
+
+    <!-- Status Message -->
+    <div id="status" class="hidden mt-6 text-center text-sm"></div>
+  </div>
+
+  <!-- Loading Overlay -->
+  
+</div>
+
+{% endblock %}
+
+{%block script%}
+<script type="module" src="/static/js/login.js"></script>
+{% endblock %}

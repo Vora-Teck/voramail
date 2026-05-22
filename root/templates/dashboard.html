@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoraMX - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .sidebar { transition: transform 0.3s ease; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100">
+
+  <!-- Top Navbar -->
+  <nav class="fixed top-0 left-0 right-0 bg-zinc-900 border-b border-zinc-800 z-50">
+    <div class="px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <!-- Mobile Sidebar Toggle -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold text-3xl">V</div>
+          <span class="font-semibold text-2xl tracking-tight">VoraMX</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <div class="hidden sm:flex items-center gap-2 bg-zinc-800 rounded-2xl px-4 py-2 text-sm">
+          <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+          All systems operational
+        </div>
+        
+        <button class="relative p-3 hover:bg-zinc-800 rounded-2xl">
+          <i class="fas fa-bell text-xl"></i>
+          <span class="absolute top-1.5 right-1.5 w-5 h-5 bg-red-500 text-[10px] flex items-center justify-center rounded-full">3</span>
+        </button>
+        
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-zinc-700 rounded-2xl overflow-hidden">
+            <img src="https://i.pravatar.cc/128" alt="User" class="w-full h-full object-cover">
+          </div>
+          <div class="hidden md:block">
+            <p class="text-sm font-medium">Alex Chen</p>
+            <p class="text-xs text-emerald-400">Online</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex pt-16">
+    <!-- Desktop Sidebar -->
+    <div id="desktop-sidebar" class="hidden lg:flex w-72 bg-zinc-900 border-r border-zinc-800 h-screen fixed top-16 flex-col z-40">
+      <div class="p-6 flex-1 overflow-y-auto">
+        <nav class="space-y-1">
+          <a href="#" class="nav-link active flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-zinc-800 text-white" onclick="setActive(this)">
+            <i class="fas fa-home w-5"></i><span>Dashboard</span>
+          </a>
+          <a href="#" class="nav-link flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-zinc-800" onclick="setActive(this)">
+            <i class="fas fa-chart-line w-5"></i><span>Analytics</span>
+          </a>
+          <a href="#" class="nav-link flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-zinc-800" onclick="setActive(this)">
+            <i class="fas fa-key w-5"></i><span>API Keys</span>
+          </a>
+          <a href="#" class="nav-link flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-zinc-800" onclick="setActive(this)">
+            <i class="fas fa-paper-plane w-5"></i><span>Send Test Email</span>
+          </a>
+          <a href="#" class="nav-link flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-zinc-800" onclick="setActive(this)">
+            <i class="fas fa-history w-5"></i><span>Activity Log</span>
+          </a>
+          <a href="#" class="nav-link flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-zinc-800" onclick="setActive(this)">
+            <i class="fas fa-cog w-5"></i><span>Settings</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 lg:ml-72">
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-4xl font-bold mb-2">Dashboard</h1>
+        <p class="text-zinc-400 mb-10">Overview • May 2026</p>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
+            <div class="flex justify-between">
+              <div>
+                <p class="text-zinc-400">Total Sent</p>
+                <p class="text-4xl font-bold mt-2">248,391</p>
+              </div>
+              <i class="fas fa-envelope text-4xl text-emerald-500"></i>
+            </div>
+            <p class="text-emerald-400 text-sm mt-4">↑ 24% from last month</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
+            <div class="flex justify-between">
+              <div>
+                <p class="text-zinc-400">Delivery Rate</p>
+                <p class="text-4xl font-bold mt-2">99.92%</p>
+              </div>
+              <i class="fas fa-check-circle text-4xl text-emerald-500"></i>
+            </div>
+            <p class="text-emerald-400 text-sm mt-4">Industry leading</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
+            <div class="flex justify-between">
+              <div>
+                <p class="text-zinc-400">Avg. Open Rate</p>
+                <p class="text-4xl font-bold mt-2">41.8%</p>
+              </div>
+              <i class="fas fa-eye text-4xl text-sky-400"></i>
+            </div>
+            <p class="text-sky-400 text-sm mt-4">↑ 3.2%</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
+            <div class="flex justify-between">
+              <div>
+                <p class="text-zinc-400">API Usage</p>
+                <p class="text-4xl font-bold mt-2">18.4k</p>
+              </div>
+              <i class="fas fa-bolt text-4xl text-amber-400"></i>
+            </div>
+            <p class="text-amber-400 text-sm mt-4">62% of monthly limit</p>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid lg:grid-cols-12 gap-6">
+          <!-- Main Line Chart -->
+          <div class="lg:col-span-8 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+            <h3 class="font-semibold mb-6 text-lg">Email Volume Trend</h3>
+            <canvas id="mainChart" height="110"></canvas>
+          </div>
+
+          <!-- Donut Chart -->
+          <div class="lg:col-span-4 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+            <h3 class="font-semibold mb-6 text-lg">Delivery Breakdown</h3>
+            <canvas id="donutChart" height="220"></canvas>
+          </div>
+
+          <!-- Bar Chart -->
+          <div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+            <h3 class="font-semibold mb-6 text-lg">Weekly Performance</h3>
+            <canvas id="barChart" height="100"></canvas>
+          </div>
+        </div>
+
+        <!-- API Keys -->
+        <div class="mt-12 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+          <div class="flex justify-between mb-6">
+            <h3 class="text-xl font-semibold">API Keys</h3>
+            <button onclick="createNewKey()" class="bg-emerald-500 text-black px-6 py-3 rounded-2xl font-medium flex items-center gap-2 hover:bg-emerald-600">
+              <i class="fas fa-plus"></i> New Key
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between bg-zinc-950 border border-zinc-700 rounded-2xl p-5 gap-4">
+              <div class="font-mono text-sm text-zinc-400">vk_live_9x7mK2pQ8vL5tR...</div>
+              <div class="flex items-center gap-6 text-sm">
+                <span class="text-emerald-400">Active</span>
+                <button onclick="copyToClipboard(this)" class="hover:text-white">Copy</button>
+                <button class="text-red-400 hover:text-red-500">Revoke</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-zinc-950 z-[100] flex flex-col">
+    <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold text-3xl">V</div>
+        <span class="font-semibold text-2xl">VoraMX</span>
+      </div>
+      <button onclick="toggleMobileMenu()" class="text-3xl">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="flex-1 p-6 space-y-6 text-lg">
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">Dashboard</a>
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">Analytics</a>
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">API Keys</a>
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">Send Emails</a>
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">Activity Log</a>
+      <a href="#" class="block py-3 px-4 rounded-2xl hover:bg-zinc-900" onclick="toggleMobileMenu()">Settings</a>
+    </div>
+  </div>
+
+  <script>
+    // Set active nav link
+    function setActive(el) {
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Mobile Menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
+    // Copy API Key
+    function copyToClipboard(btn) {
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = "Copy", 2000);
+    }
+
+    function createNewKey() {
+      alert("✅ New API Key created successfully!\n\nvk_live_7f9k3mXvL8pQ2w...");
+    }
+
+    // Initialize Charts
+    window.onload = () => {
+      // Main Line Chart
+      new Chart(document.getElementById('mainChart'), {
+        type: 'line',
+        data: {
+          labels: ['May 3', 'May 6', 'May 9', 'May 12', 'May 15', 'May 18', 'May 21', 'May 24', 'May 27', 'May 30'],
+          datasets: [{
+            label: 'Emails Sent',
+            data: [12400, 18900, 15200, 23100, 19800, 27400, 31200, 28900, 33500, 29800],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            tension: 0.4,
+            borderWidth: 3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: '#27272a' } }, x: { grid: { color: '#27272a' } } }
+        }
+      });
+
+      // Donut Chart
+      new Chart(document.getElementById('donutChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Delivered', 'Opened', 'Bounced', 'Spam'],
+          datasets: [{
+            data: [92, 48, 5, 2],
+            backgroundColor: ['#10b981', '#22d3ee', '#f59e0b', '#ef4444'],
+            borderWidth: 0
+          }]
+        },
+        options: { cutout: '75%', responsive: true }
+      });
+
+      // Bar Chart
+      new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Sent',
+            data: [12400, 9800, 15600, 18700, 14200, 6700, 8200],
+            backgroundColor: '#10b981'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } }
+        }
+      });
+    };
+  </script>
+</body>
+</html>

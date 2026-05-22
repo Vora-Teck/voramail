@@ -1,0 +1,312 @@
+{%extends "landing/base.html"%}
+
+{%block title%}API Docs{% endblock %}
+{%block title2%}API Docs{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/default.min.css">
+  <link rel="stylesheet" href="/static/css/github-dark.min.css">
+  <script src="/static/js/marked.min.js"></script>
+  <script src="/static/js/highlight.min.js"></script>
+  <script src="/static/js/python.min.js"></script>
+  <script src="/static/js/php.min.js"></script>
+  <script src="/static/js/javascript.min.js"></script>
+  <script src="/static/js/json.min.js"></script>
+  <script src="/static/js/css.min.js"></script>
+  <script src="/static/js/http.min.js"></script>
+{% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/css/docs.css">
+{% endblock %}
+
+{%block content%}
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">API Docs</div>
+    <nav class="nav">
+      <a href="#" class="dropdown-btn">Introduction
+        <i class="fa fa-caret-down"></i>
+      </a>
+      <div class="dropdown-container">
+        <a class="scrollBtn" data-name="intro" data-id="introduction" href="#">Introduction</a>
+        <a class="scrollBtn" data-name="auth" data-id="introduction" href="#">Authorization</a>
+        <a class="scrollBtn" data-name="agents" data-id="introduction" href="#">Send Mail</a>
+        <a class="scrollBtn" data-name="sample_request" data-id="introduction" href="#">Sample Request</a>
+        <a class="scrollBtn" data-name="sample_response" data-id="introduction" href="#">Sample Responses</a>
+        <a class="scrollBtn" data-name="sample_error" data-id="introduction" href="#">Errors</a>
+      </div>
+      
+      
+    </nav>
+  </aside>
+  <!-- Main Content -->
+<main class="content" id="introduction">
+    <section id="intro" class="section">
+      <div class="h3">Introduction</div>
+      <p>VoraMX provides a powerful API for integrating email messaging in your applications.</p>
+      <p><code>BASE_URL: https://mx.vorateck.com.ng</code></p>
+    </section>
+
+    <section id="auth" class="section">
+      <h2>Authorization</h2>
+      <div class="card">
+        <p>All requests must be authenticated using your API Key and Secret Key in request header.</p>
+        <pre><code class="language-json">
+          headers = {
+            "X-API-KEY": "YOUR_API_KEY",
+            "X-SECRET-KEY": "YOUR_SECRET_KEY",
+            "Accept": "apllication/json"
+          }
+        </code></pre>
+      </div>
+    </section>
+
+<section id="agents" class="section">
+<h2>Send Mail</h2>
+<span class="badge">POST</span>
+<span class="badge">/api/send-mail</span>
+
+<div class="card">
+  <h3>Request Body</h3>
+  <pre><code class="language-json">
+  {
+        "account_id": "vorateck_s7v230fqri",
+        "recipients": [
+            "user1@example.com",
+            "user2@example.com"
+        ],
+        "subject": "Test Subject",
+        "content": "Hello World"
+    }
+  </code></pre>
+</div>
+
+<div class="card" id="sample_request">
+  <h3>Sample Request</h3>
+  <div class="tabs">
+    <div class="tab active" onclick="switchCode('js')">JavaScript</div>
+    <div class="tab" onclick="switchCode('py')">Python</div>
+    <div class="tab" onclick="switchCode('php')">PHP</div>
+  </div>
+
+  <pre id="code-js"><code class="language-javascript">
+const url = "https://mx.vorateck.com.ng/api/send-mail";
+
+    const options =  {
+    "method": "POST",
+    "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-API-KEY": "your-api-key",
+        "X-SECRET-KEY": "your-secret-key"
+    },
+    "body": {
+        "account_id": "vorateck_s7v230fqri",
+        "recipients": [
+            "user1@example.com",
+            "user2@example.com"
+        ],
+        "subject": "Test Subject",
+        "content": "Hello World"
+    }
+};
+
+    let response = await fetch(url, options);
+    let data = await response.json();
+
+    console.log(data)</code></pre>
+
+<pre id="code-py" style="display:none"><code class="language-python">
+import requests
+
+</code></pre>
+
+<pre id="code-php" style="display:none"><code class="language-php">
+
+
+</code></pre> </div>
+
+<div class="card" id="sample_response">
+  <h3>Sample Response</h3>
+  <pre><code class="language-json">
+
+{
+    "message": "Message sent successfully",
+    "message_id": "b77d64ad-2ce0-4001-b18c-ba5a77fad8c6",
+    "status": "completed",
+    "success": true
+}</code></pre> </div> </section>
+
+<section id="sample_error" class="section">
+<h2>Error Responses</h2>
+<div class="card">
+  <pre><code class="language-json">
+{
+    "message": "SMTP authentication failed",
+    "message_id": "b77d64ad-2ce0-4001-b18c-ba5a77fad8c6",
+    "status": "failed",
+    "success": false
+}</code></pre> </div> </section>
+
+</main>
+
+
+<main class="content w-hide" id="integration">
+  <section id="intro" class="section">
+    <div class="h3">Integration</div>
+    <p>Eduka AI provides a powerful API for interacting with academic and research-focused AI agents.</p>
+  </section>
+
+  <section id="auth" class="section">
+    <h2>Authorization</h2>
+    <div class="card">
+      <p>All requests must be authenticated using a Bearer token.</p>
+      <pre><code class="language-http">Authorization: Bearer YOUR_API_KEY</code></pre>
+    </div>
+  </section>
+
+<section id="agents" class="section">
+<h2>Run Agent</h2>
+<span class="badge">POST</span>
+<span class="badge">/v1/agents/run</span>
+
+<div class="card">
+<h3>Request Body</h3>
+<pre><code class="language-json">
+{
+  "agent_type": "essay",
+  "payload": {
+    "topic": "The impact of AI in education",
+    "word_count": 1200 
+  } 
+}
+</code></pre>
+</div>
+
+<div class="card" id="sample_request">
+<h3>Sample Request</h3>
+<div class="tabs">
+  <div class="tab active" onclick="switchCode('js')">JavaScript</div>
+  <div class="tab" onclick="switchCode('py')">Python</div>
+  <div class="tab" onclick="switchCode('php')">PHP</div>
+</div>
+
+<pre id="code-js"><code class="language-javascript">
+fetch('https://ai.eduka.ng/v1/agents/run', {
+method: 'POST',
+headers: { 
+  'Authorization': 'Bearer API_KEY', 
+  'Content-Type': 'application/json' 
+}, 
+body: JSON.stringify({ 
+  agent_type: 'essay', 
+  payload: { topic: 'AI in Education' } 
+}) 
+});</code></pre>
+
+<pre id="code-py" style="display:none"><code class="language-python">import requests
+
+requests.post( 'https://api.eduka.ai/v1/agents/run', headers={'Authorization': 'Bearer API_KEY'}, json={'agent_type': 'essay', 'payload': {'topic': 'AI in Education'}} )</code></pre>
+
+<pre id="code-php" style="display:none"><code class="language-php">$response = Http::withToken('API_KEY')->post(
+
+'https://api.eduka.ai/v1/agents/run', [ 'agent_type' => 'essay', 'payload' => ['topic' => 'AI in Education'] ] );</code></pre> </div>
+
+<div class="card" id="sample_response">
+<h3>Sample Response</h3>
+<pre><code class="language-json">{
+
+"markdown": "# Essay Output...", "citations": [], "tokens_used": 1420 }</code></pre> </div> </section>
+
+<section id="sample_error" class="section">
+<h2>Error Responses</h2>
+<div class="card">
+<pre><code class="language-json">{
+
+"error": "Quota exceeded", "code": 429 }</code></pre> </div> </section>
+
+</main>
+
+<main class="content w-hide" id="sdks">
+  <section id="intro" class="section">
+    <div class="h3">SDKs & Libraries</div>
+    <p>Eduka AI provides a powerful API for interacting with academic and research-focused AI agents.</p>
+  </section>
+
+  <section id="auth" class="section">
+    <h2>Authorization</h2>
+    <div class="card">
+      <p>All requests must be authenticated using a Bearer token.</p>
+      <pre><code class="language-http">Authorization: Bearer YOUR_API_KEY</code></pre>
+    </div>
+  </section>
+
+<section id="agents" class="section">
+<h2>Run Agent</h2>
+<span class="badge">POST</span>
+<span class="badge">/v1/agents/run</span>
+
+<div class="card">
+<h3>Request Body</h3>
+<pre><code class="language-json">
+{
+  "agent_type": "essay",
+  "payload": {
+    "topic": "The impact of AI in education",
+    "word_count": 1200 
+  } 
+}
+</code></pre>
+</div>
+
+<div class="card" id="sample_request">
+<h3>Sample Request</h3>
+<div class="tabs">
+  <div class="tab active" onclick="switchCode('js')">JavaScript</div>
+  <div class="tab" onclick="switchCode('py')">Python</div>
+  <div class="tab" onclick="switchCode('php')">PHP</div>
+</div>
+
+<pre id="code-js"><code class="language-javascript">
+fetch('https://ai.eduka.ng/v1/agents/run', {
+method: 'POST',
+headers: { 
+  'Authorization': 'Bearer API_KEY', 
+  'Content-Type': 'application/json' 
+}, 
+body: JSON.stringify({ 
+  agent_type: 'essay', 
+  payload: { topic: 'AI in Education' } 
+}) 
+});</code></pre>
+
+<pre id="code-py" style="display:none"><code class="language-python">import requests
+
+requests.post( 'https://api.eduka.ai/v1/agents/run', headers={'Authorization': 'Bearer API_KEY'}, json={'agent_type': 'essay', 'payload': {'topic': 'AI in Education'}} )</code></pre>
+
+<pre id="code-php" style="display:none"><code class="language-php">$response = Http::withToken('API_KEY')->post(
+
+'https://api.eduka.ai/v1/agents/run', [ 'agent_type' => 'essay', 'payload' => ['topic' => 'AI in Education'] ] );</code></pre> </div>
+
+<div class="card" id="sample_response">
+<h3>Sample Response</h3>
+<pre><code class="language-json">{
+
+"markdown": "# Essay Output...", "citations": [], "tokens_used": 1420 }</code></pre> </div> </section>
+
+<section id="sample_error" class="section">
+<h2>Error Responses</h2>
+<div class="card">
+<pre><code class="language-json">{
+
+"error": "Quota exceeded", "code": 429 }</code></pre> </div> </section>
+
+</main>
+</div>
+{% endblock %}
+
+{%block script%}
+<script src="/static/js/docs.js"></script>
+{% endblock %}

@@ -1,0 +1,113 @@
+{%extends "user/base.html"%}
+
+{%block title%}Dashboard{% endblock %}
+{%block title2%}Dashboard{% endblock %}
+
+{%block content%}
+
+<div class="dashboard-view active" id="overview">
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+
+    <a href="/email-accounts">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <div class="stat-card-title">Email Accounts</div>
+          <div class="stat-card-icon primary">
+            <span class="fa fa-android"></span>
+          </div>
+        </div>
+        <div class="stat-card-value tot-age"></div>
+        <div class="stat-card-change positive">
+          <span class="fa fa-check-circle"></span>
+          <span><span class="act-age"></span> Active Accounts</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="/analytics">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <div class="stat-card-title">Total API Calls</div>
+          <div class="stat-card-icon primary">
+            <span class="fa fa-server"></span>
+          </div>
+        </div>
+        <div class="stat-card-value tot-call"></div>
+        <div class="stat-card-change positive">
+          <span class="fa fa-line-chart"></span>
+          <span><span class="tod-call"></span> API calls today</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="/analytics">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <div class="stat-card-title">Monthly API Calls</div>
+          <div class="stat-card-icon success">
+            <span class="fa fa-cloud-upload"></span>
+          </div>
+        </div>
+        <div class="stat-card-value mon-used"></div>
+        <div class="stat-card-change positive">
+          <span class="fa fa-line-chart"></span>
+          <span class="tok-text"></span>
+        </div>
+      </div>
+    </a>
+
+
+  </div>
+
+  <!-- Charts -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h3 class="chart-card-title">TAPI Usage</h3>
+        <p class="chart-card-subtitle">Daily API usage for this month</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="progressChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h3 class="chart-card-title">API Calls</h3>
+        <p class="chart-card-subtitle">Calls by Status</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="dashboard-table-container">
+    <div class="dashboard-table-header">
+      <h3 class="dashboard-table-title">Recent Messages</h3>
+      <a href="/analytics" class="btn btn-secondary">View All</a>
+    </div>
+    <table class="dashboard-table">
+      <thead>
+        <tr>
+          <th style="white-space:nowrap;">Message ID</th>
+          <th>Status</th>
+          <th style="white-space:nowrap;">Date Created</th>
+        </tr>
+      </thead>
+      <tbody class="pro-list"></tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="/static/js/dashboard.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Overview`)
+        $(".dash-act").addClass('active')
+      </script>
+{% endblock %}

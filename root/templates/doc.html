@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoraMX Docs - API Reference</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .logo-font { font-family: 'Space Grotesk', sans-serif; }
+    .code-font { font-family: ui-monospace, monospace; }
+    
+    .sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+    .sidebar-link { transition: all 0.2s; }
+    .sidebar-link:hover { background-color: #10b981; color: white; }
+    .active { background-color: #10b981; color: white; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100">
+
+  <!-- Top Navigation -->
+  <nav class="fixed top-0 left-0 right-0 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <!-- Sidebar Toggle -->
+        <button id="sidebar-toggle" class="lg:hidden p-2 text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <a href="/" class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">V</div>
+          <span class="logo-font text-2xl font-semibold tracking-tight">VoraMX</span>
+        </a>
+      </div>
+
+      <!-- Desktop Main Navigation -->
+      <div class="hidden lg:flex items-center gap-6 text-sm">
+        <a href="/" class="hover:text-emerald-400 transition">Home</a>
+        <a href="/docs" class="text-emerald-400 font-medium">Documentation</a>
+        <a href="#" class="hover:text-emerald-400 transition">Status</a>
+        <a href="#" class="hover:text-emerald-400 transition">Blog</a>
+        <a href="#" class="hover:text-emerald-400 transition">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="relative w-72 hidden md:block">
+          <input type="text" id="search-input" 
+                 placeholder="Search documentation..." 
+                 class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl py-3 px-5 pl-12 text-sm focus:outline-none focus:border-emerald-500">
+          <i class="fas fa-search absolute left-4 top-3.5 text-zinc-500"></i>
+        </div>
+        <a href="#" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl text-sm font-medium">Log in</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex pt-20">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar w-72 bg-zinc-900 border-r border-zinc-800 h-[calc(100vh-5rem)] overflow-y-auto fixed lg:sticky top-20 transform -translate-x-full lg:translate-x-0 z-40">
+      <div class="p-6">
+        <!-- Mobile Close Button -->
+        <button id="close-sidebar" class="lg:hidden mb-6 text-2xl text-zinc-400 hover:text-white">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <div class="mb-8">
+          <h2 class="uppercase text-xs font-semibold tracking-widest text-zinc-500 mb-3">Getting Started</h2>
+          <ul class="space-y-1">
+            <li><a href="#introduction" class="sidebar-link active block px-4 py-2.5 rounded-2xl text-sm">Introduction</a></li>
+            <li><a href="#quickstart" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Quickstart</a></li>
+            <li><a href="#authentication" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Authentication</a></li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="uppercase text-xs font-semibold tracking-widest text-zinc-500 mb-3">API Reference</h2>
+          <ul class="space-y-1">
+            <li><a href="#send-email" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Send Email</a></li>
+            <li><a href="#bulk-send" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Bulk Send</a></li>
+            <li><a href="#templates" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Templates</a></li>
+            <li><a href="#webhooks" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Webhooks</a></li>
+            <li><a href="#analytics" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Analytics</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="uppercase text-xs font-semibold tracking-widest text-zinc-500 mb-3">Resources</h2>
+          <ul class="space-y-1">
+            <li><a href="#" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">SDKs</a></li>
+            <li><a href="#" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Error Codes</a></li>
+            <li><a href="#" class="sidebar-link block px-4 py-2.5 rounded-2xl text-sm">Rate Limits</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 lg:ml-72 max-w-4xl mx-auto px-6 py-12">
+      <h1 class="text-5xl font-bold mb-4">VoraMX API Documentation</h1>
+      <p class="text-xl text-zinc-400">Send reliable emails with a simple, developer-friendly API.</p>
+
+      <!-- Introduction -->
+      <section id="introduction" class="mt-16">
+        <h2 class="text-3xl font-semibold mb-6">Introduction</h2>
+        <p class="text-zinc-300 leading-relaxed">
+          VoraMX provides a clean, fast, and reliable email infrastructure for developers. 
+          Whether you're sending transactional emails or marketing campaigns, our API is designed to be simple yet powerful.
+        </p>
+        <div class="mt-8 p-6 bg-emerald-900/20 border border-emerald-900 rounded-3xl">
+          <p class="text-emerald-400 font-medium">Base URL</p>
+          <code class="block mt-2 text-emerald-300">https://api.voramx.com/v1</code>
+        </div>
+      </section>
+
+      <!-- Quickstart -->
+      <section id="quickstart" class="mt-20">
+        <h2 class="text-3xl font-semibold mb-6">Quickstart</h2>
+        <div class="bg-zinc-900 rounded-3xl p-8">
+          <pre class="code-font text-sm overflow-auto"><code>npm install @voramx/sdk</code></pre>
+        </div>
+      </section>
+
+      <!-- Authentication -->
+      <section id="authentication" class="mt-20">
+        <h2 class="text-3xl font-semibold mb-6">Authentication</h2>
+        <p class="text-zinc-300">All API requests require a Bearer token in the header.</p>
+        <div class="mt-6">
+          <pre class="bg-zinc-950 p-6 rounded-3xl code-font text-sm">Authorization: Bearer YOUR_API_KEY</pre>
+        </div>
+      </section>
+
+      <!-- Send Email -->
+      <section id="send-email" class="mt-20">
+        <h2 class="text-3xl font-semibold mb-6">Send Email</h2>
+        <p class="text-zinc-400 mb-4">POST /v1/emails/send</p>
+
+        <div class="flex border-b border-zinc-700 mb-6">
+          <button onclick="switchLanguage(0)" class="lang-tab active px-6 py-3 text-sm font-medium">JavaScript</button>
+          <button onclick="switchLanguage(1)" class="lang-tab px-6 py-3 text-sm font-medium">Python</button>
+          <button onclick="switchLanguage(2)" class="lang-tab px-6 py-3 text-sm font-medium">cURL</button>
+        </div>
+
+        <div id="code-examples">
+          <div id="lang-0" class="code-block">
+            <pre class="bg-zinc-950 p-8 rounded-3xl code-font text-sm overflow-auto"><code>fetch('https://api.voramx.com/v1/emails/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    to: "user@example.com",
+    subject: "Welcome to VoraMX!",
+    html: "&lt;h1&gt;Hello from VoraMX!&lt;/h1&gt;",
+    from: "noreply@yourdomain.com"
+  })
+});</code></pre>
+          </div>
+
+          <div id="lang-1" class="code-block hidden">
+            <pre class="bg-zinc-950 p-8 rounded-3xl code-font text-sm overflow-auto"><code>import requests
+
+response = requests.post(
+    "https://api.voramx.com/v1/emails/send",
+    headers={"Authorization": "Bearer YOUR_API_KEY"},
+    json={"to": "user@example.com", "subject": "Welcome!", "html": "&lt;h1&gt;Hello!&lt;/h1&gt;"}
+)
+print(response.json())</code></pre>
+          </div>
+
+          <div id="lang-2" class="code-block hidden">
+            <pre class="bg-zinc-950 p-8 rounded-3xl code-font text-sm overflow-auto"><code>curl -X POST https://api.voramx.com/v1/emails/send \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"to": "user@example.com", "subject": "Test", "html": "&lt;p&gt;Hello&lt;/p&gt;"}'</code></pre>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-12 mb-4">Sample Response</h3>
+        <pre class="bg-zinc-950 p-8 rounded-3xl code-font text-sm">{
+  "success": true,
+  "message_id": "msg_9k2mXvL8pQ",
+  "status": "queued"
+}</pre>
+      </section>
+
+      <div class="mt-24 pt-12 border-t border-zinc-800 text-center text-zinc-500 text-sm">
+        Need help? <a href="#" class="text-emerald-400 hover:underline">Contact Support</a> or join our <a href="#" class="text-emerald-400 hover:underline">Discord</a>.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar Toggle
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const closeSidebar = document.getElementById('close-sidebar');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');
+    }
+
+    sidebarToggle.addEventListener('click', toggleSidebar);
+    closeSidebar.addEventListener('click', toggleSidebar);
+
+    // Language Switcher
+    function switchLanguage(n) {
+      document.querySelectorAll('.code-block').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`lang-${n}`).classList.remove('hidden');
+      
+      document.querySelectorAll('.lang-tab').forEach((tab, i) => {
+        if (i === n) tab.classList.add('active', 'text-emerald-400', 'border-b-2', 'border-emerald-400');
+        else tab.classList.remove('active', 'text-emerald-400', 'border-b-2', 'border-emerald-400');
+      });
+    }
+
+    // Active sidebar link on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.sidebar-link');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) current = section.getAttribute('id');
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+      });
+    });
+
+    // Search
+    document.getElementById('search-input').addEventListener('keyup', (e) => {
+      if (e.key === "Enter") alert("Search would filter content here.");
+    });
+
+    // Initial active tab
+    document.querySelector('.lang-tab').classList.add('active', 'text-emerald-400', 'border-b-2', 'border-emerald-400');
+  </script>
+</body>
+</html>
