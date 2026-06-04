@@ -18,7 +18,7 @@ class Plan(db.Model):
     annual_price = db.Column(db.Numeric(10, 2), default=0.00)
     monthly_api_limit = db.Column(db.Integer, default=2000)
     daily_api_limit = db.Column(db.Integer, default=100)
-    max_accounts = db.Column(db.Integer, default=3)
+    max_accounts = db.Column(db.Integer, default=5)
     features = db.Column(db.JSON, default=list)
 
 

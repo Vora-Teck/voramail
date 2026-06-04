@@ -4,49 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6eeaeb3-84e1-47e1-9e49-ff14f795b8e0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/voramail.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/orchestrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/orchestrator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/routers/client/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/routers/client/account.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/routers/client/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/routers/client/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/routers/client/profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/routers/client/profile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/schemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/security/encryption.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/security/encryption.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/security/mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/security/mail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/root/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/accounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/root/static/js/accounts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/css.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/http.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/javascript.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/json.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/php.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/js/python.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/static/module/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/root/static/module/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/contact.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/doc.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/docs.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/landing/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/landing/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/landing/docs.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/landing/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/landing/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/node.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/php.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/python.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/user/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/analytics.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/user/analytics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/user/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/root/templates/user/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/markdown.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/user/payments.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/templates/vanilla.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/root/token_limits.py" beforeDir="false" afterPath="$PROJECT_DIR$/root/token_limits.py" afterDir="false" />
-    </list>
+    <list default="true" id="a6eeaeb3-84e1-47e1-9e49-ff14f795b8e0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
