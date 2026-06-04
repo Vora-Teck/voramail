@@ -22,12 +22,13 @@ class AccountSchema(SQLAlchemySchema):
         model = Account
         load_instance = True
 
-    id = auto_field()
     account_id = auto_field()
     name = auto_field()
-    smtp_username = auto_field()
+    smtp_data = auto_field()
     active = auto_field()
     created_at = auto_field()
+    smtp_username = auto_field()
+    updated_at = auto_field()
     #user = ma.Nested(UserSchema)
 
 class AccountDetailSchema(SQLAlchemySchema):
@@ -35,7 +36,6 @@ class AccountDetailSchema(SQLAlchemySchema):
         model = Account
         load_instance = True
 
-    id = auto_field()
     account_id = auto_field()
     name = auto_field()
     smtp_username = auto_field()

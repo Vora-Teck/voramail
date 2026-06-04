@@ -80,7 +80,7 @@ def email_accounts():
         #raise e
         return jsonify(error=f"Error occurred: {e}"), 500
 
-@account_bp.route("/<account_id>", methods=["GET", "POST"])
+@account_bp.route("/<account_id>", methods=["GET", "POST", "DELETE"])
 @jwt_required()
 @require_active_user
 def email_account(account_id):
@@ -94,10 +94,7 @@ def email_account(account_id):
             return jsonify(account_detail_schema.dump(account)), 200
         elif request.method == "POST":
             data = clean_form(request.json)
-            print(data)
             acc_name = data["name"]
-            acc_username = data["username"]
-            smtp_host = data["host"]
             smtp_pass = data.get("password", "")
             callback = data.get("callback", "")
             ips = data.get("ips", [])
@@ -106,102 +103,100 @@ def email_account(account_id):
 
             if not acc_name:
                 return jsonify(error=f"Account name not provided"), 400
-            if not acc_username:
-                return jsonify(error=f"Account email address not provided"), 400
-            if not is_valid_email(acc_username):
-                return jsonify(error=f"Invalid email address provided"), 400
-            if not smtp_host:
-                return jsonify(error=f"SMTP host not provided"), 400
             if callback and not is_valid_url(callback):
                 return jsonify(error=f"Invalid URL pattern for callback"), 400
             if len(ips) > 0 and any([not is_valid_ip(i) for i in ips]):
                 return jsonify(error=f"Invalid IP address provided in IP whitelist"), 400
 
-            email_host = None
-            encryp = None
-            if account.smtp_host != smtp_host:
-                for s in smtp_hosts:
-                    if s["smtp_host"] == smtp_host:
-                        email_host = s
-                        break
-                if not email_host:
-                    return jsonify(error=f"Invalid email host"), 400
-                for p in email_host["ports"]:
-                    if p["port"] == 587:
-                        encryp = p
-                        break
-
             account.name = acc_name
             account.callback_url = callback
             account.ip_whitelist = ips
-            account.smtp_username = acc_username
-            if email_host:
-                account.smtp_host = smtp_host
-                account.smtp_data = email_host
-            if encryp:
-                account.encryption = encryp
             if smtp_pass:
                 account.encrypt_password(smtp_pass)
             db.session.commit()
             return jsonify(message="Email account updated successfully!"), 201
+        elif request.method == "DELETE":
+            db.session.delete(account)
+            db.session.commit()
+            return jsonify(message="Email account deleted successfully!"), 200
     except Exception as e:
         return jsonify(error=f"Error occurred: {e}"), 500
 
-
-@account_bp.route("/jobs", methods=["GET"])
+@account_bp.route("/<account_id>/mails", methods=["GET"])
 @jwt_required()
-def list_jobs():
-    tenant_id = request.args.get("tenant_id")
-    status = request.args.get("status")
-    limit = int(request.args.get("limit") or 50)
-    offset = int(request.args.get("offset") or 0)
-    x_api_key = request.headers.get("X-API-Key")
-    query = Job.query()
+@require_active_user
+def email_messages(account_id):
+    user = request.current_user
+    user_id = get_jwt_identity()
+    try:
+        page = request.args.get("page", 1, int)
+        per_page = request.args.get("per_page", 20, int)
+        job_stat = request.args.get("status", "")
 
-    if x_api_key != INTERNAL_API_KEY:
-        return jsonify(error="Unauthorized request"), 401
-    if tenant_id:
-        query = query.filter_by(tenant_id=tenant_id)
-    if status:
-        try:
-            query = query.filter(Job.status == JobStatus(status))
-        except Exception:
-            return jsonify(error="Invalid status filter"), 400
-    jobs = query.order_by(Job.created_at.desc()).limit(limit).offset(offset).all()
-    out = []
-    for j in jobs:
-        out.append({
-            "job_id": j.job_id,
-            "tenant_id": j.tenant_id,
-            "task": j.task,
-            "status": j.status.value,
-            "created_at": j.created_at.isoformat() if j.created_at else None,
-            "updated_at": j.updated_at.isoformat() if j.updated_at else None
-        })
-    return jsonify(out)
+        account = Account.query.filter_by(user_id=user_id, account_id=account_id).first()
+        if not account:
+            return jsonify(error="Email account Not Found"), 404
 
-@account_bp.route("/jobs/<job_id>", methods=["GET"])
+        if per_page > 30: per_page = 30
+        if per_page < 1: per_page = 20
+        if page < 1: page = 1
+
+        items = EmailMessage.query.filter_by(account_id=account.id)
+        if job_stat and job_stat in ['queued', 'running', 'completed', 'failed']:
+            items = items.filter_by(status=JobStatus(job_stat))
+        pagination = (
+            items.order_by(EmailMessage.created_at.desc())
+            .paginate(
+                page=page, per_page=per_page, error_out=False
+            )
+        )
+        messages = pagination.items
+        return jsonify({
+            "pages": pagination.pages,
+            "page": page,
+            "total_items": pagination.total,
+            "has_prev": pagination.has_prev,
+            "has_next": pagination.has_next,
+            "data": [{
+                "id": m.id,
+                "message_id": m.message_id,
+                "status": m.status.value,
+                "subject": m.subject,
+                "created_at": m.created_at.isoformat(),
+                "updated_at": m.updated_at.isoformat(),
+                "mode": m.mode
+            } for m in messages]
+        }), 200
+    except Exception as e:
+        return jsonify(error=f"Error occurred: {e}"), 500
+
+@account_bp.route("/mails/<mail_id>", methods=["GET"])
 @jwt_required()
-def get_job(job_id):
-    x_api_key = request.headers.get("X-API-Key")
-    if x_api_key != INTERNAL_API_KEY:
-        return jsonify(error="Unauthorized request"), 401
-    job = Job.query.filter_by(job_id=job_id).first()
-    if not job:
-        return jsonify(error="job not found"), 404
-    return jsonify({
-        "job_id": job.job_id,
-        "tenant_id": job.tenant_id,
-        "task": job.task,
-        "status": job.status.value,
-        "payload": job.payload,
-        "result": job.result,
-        "callback_sent": job.callback_sent,
-        "callback_url": job.callback_url,
-        "created_at": job.created_at.isoformat() if job.created_at else None,
-        "updated_at": job.updated_at.isoformat() if job.updated_at else None
-    })
-
+@require_active_user
+def email_message(mail_id):
+    user = request.current_user
+    user_id = get_jwt_identity()
+    try:
+        job = EmailMessage.query.get(mail_id)
+        if not job:
+            return jsonify(error="Mail not found"), 404
+        if job.user_id != user.id:
+            return jsonify(error="Mail not found"), 404
+        return jsonify({
+            "message_id": job.message_id,
+            "status": job.status.value,
+            "subject": job.subject,
+            "created_at": job.created_at.isoformat(),
+            "updated_at": job.updated_at.isoformat(),
+            "mode": job.mode,
+            "account": account_schema.dump(job.account),
+            "ip_address": job.ip_address,
+            "recipients": job.recipients,
+            "callback_url": job.callback_url,
+            "callback_sent": job.callback_sent
+        }), 200
+    except Exception as e:
+        return jsonify(error=f"Error occurred: {e}"), 500
 
 @account_bp.route("/upload-rag-doc/<agent_id>", methods=["POST"])
 @jwt_required()

@@ -28,6 +28,7 @@ def encrypt_payload(data: dict, api_key: str) -> str:
 
     return token.decode()
 
+
 def encrypt(data):
     fernet_key = _derive_fernet_key(ENCRYPT_KEY)
     f = Fernet(fernet_key)
@@ -35,11 +36,13 @@ def encrypt(data):
     token = f.encrypt(payload)
     return token.decode()
 
+
 def decrypt(token):
     fernet_key = _derive_fernet_key(ENCRYPT_KEY)
     f = Fernet(fernet_key)
     decrypted = f.decrypt(token.encode())
     return decrypted.decode()
+
 
 def decrypt_payload(token: str, api_key: str) -> dict:
     """

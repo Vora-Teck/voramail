@@ -10,8 +10,7 @@ from flask_jwt_extended import jwt_required
 
 from root.config import INTERNAL_API_KEY
 from root.security.encryption import encrypt_payload
-
-from root.main import app, start_job_runner_thread
+from root.security.mail import send_api_mail
 
 
 # Map tasks to in-process handlers (functions) when running single-process
@@ -19,109 +18,103 @@ from root.main import app, start_job_runner_thread
 
 # --- Job runner thread -----------------------------------------------------
 def requeue_stale_jobs():
-    """
-    On startup, convert any jobs marked as 'running' back to 'queued' so they can be retried.
-    This avoids leaving jobs in limbo when the process is interrupted.
-    """
-    with app.app_context():
-        result = Job.query.filter(Job.status == JobStatus.running)
-        if not result:
-            return
-
-        for j in result:
-            j.status = JobStatus.queued
-            db.session.commit()
-        print(f"Requeued {result.count()} stale 'running' jobs to 'queued'.")
+    result = EmailMessage.query.filter(EmailMessage.status == JobStatus.running)
+    if not result:
+        return
+    for j in result:
+        j.status = JobStatus.queued
+        db.session.commit()
+    print(f"Requeued {result.count()} stale 'running' jobs to 'queued'.")
 
 
-def fetch_and_lock_next_job():
+def fetch_and_lock_next_job(app):
     # simple: order by created_at asc, select first queued job and mark running
-    job = Job.query.filter(Job.status == JobStatus.queued).order_by(Job.created_at.asc()).with_for_update().first()
-    if not job:
-        return None
-    job.status = JobStatus.running
-    db.session.commit()
-    return job
+    with app.app_context():
+        job = EmailMessage.query.filter(EmailMessage.status == JobStatus.queued).order_by(EmailMessage.created_at.asc()).with_for_update().first()
+        if not job:
+            return None
+        job.status = JobStatus.running
+        db.session.commit()
+        return job
 
 
-def process_job(job):
-    AGENT_MAP = {
-        "ai_assistant": run_assistant_agent_sync,
-        "generate_lesson": run_content_agent_sync,
-        "generate_timetable": "http://localhost:8000/timetable/run",
-        "generate_assessment": "http://localhost:8000/assessment/run",
-    }
-
-    agent_func = AGENT_MAP.get(job.task, AGENT_MAP["ai_assistant"])
-
-    payload = {
-        "job_id": job.job_id,
-        "tenant_id": job.tenant_id,
-        "user_id": job.user_id,
-        "task": job.task,
-        "payload": job.payload,
-    }
+def process_job(app, job):
+    print(f"Processing {job.message_id}")
     # prefer to call in-process handler if available
-    try:
-        resp = agent_func(payload)
-        job.result = resp
-        if resp['status'] == "invalid":
-            job.status = JobStatus.invalid
-        elif resp['status'] == "error":
-            job.status = JobStatus.failed
-        else:
-            job.status = JobStatus.completed
-        db.session.commit()
-
-        # callback if present (encrypt payload)
-        callback_url = job.payload.get("callback_url") if isinstance(job.payload, dict) else None
-        # Try to use dedicated callback_url field first
-        if getattr(job, "callback_url", None):
+    with app.app_context():
+        try:
+            resp = send_api_mail(job.account, job)
+            callback_payload = {}
+            if "error" in resp:
+                job.status = JobStatus("failed")
+                callback_payload["success"] = False
+                callback_payload["message"] = resp["error"]
+            else:
+                job.status = JobStatus("completed")
+                callback_payload["success"] = True
+                callback_payload["message"] = "message sent successfully"
+            job.result = callback_payload
+            db.session.commit()
+            callback_payload["message_id"] = job.message_id
+            callback_payload['status'] = job.status
+            # callback if present (encrypt payload)
             callback_url = job.callback_url
-        if callback_url:
-            # encrypt using INTERNAL_API_KEY as shared secret
-            try:
-                encrypted = encrypt_payload(
-                        {"job_id": job.job_id, "status": job.status.value, "result": resp['response']},
-                        api_key=INTERNAL_API_KEY,  # encryption based on your X-API-Key
-                    )
-                with httpx.Client(timeout=10.0) as client:
-                    callback = client.post(
-                        callback_url,
-                        json={"data": encrypted},
-                        headers={"X-API-Key": INTERNAL_API_KEY}
-                    )
-                    if callback.status_code == 200:
-                        job.callback_sent = True
-                        db.session.commit()
-            except Exception as e:
-                # log but continue
-                print("Callback POST failed:", e)
-    except Exception as e:
-        job.result = {"error": str(e)}
-        job.status = JobStatus.failed
-        db.session.commit()
-        print(f"Job {job.job_id} failed during processing: {e}")
+            if callback_url:
+                # encrypt using INTERNAL_API_KEY as shared secret
+                try:
+                    signature = encrypt_payload(callback_payload, job.user.public_key)
+                    with httpx.Client(timeout=10.0) as client:
+                        print(f"Sending webhook to {callback_url}")
+                        callback = client.post(
+                            callback_url,
+                            json=callback_payload,
+                            headers={"X-Signature": signature}
+                        )
+                        if callback.status_code == 200:
+                            job.callback_sent = True
+                            db.session.commit()
+                except Exception as e:
+                    # log but continue
+                    print("Callback POST failed:", e)
+        except Exception as e:
+            job.result = {"error": str(e)}
+            job.status = JobStatus.failed
+            db.session.commit()
+            print(f"Job {job.message_id} failed during processing: {e}")
 
 
-def job_runner_loop(stop_flag, poll_interval=2.0):
+stop_flag = {"stop": False}
+_runner_thread = None
 
+def job_runner_loop(app, poll_interval=2.0):
     print("Job runner thread started.")
     while not stop_flag.get("stop"):
         try:
-            job = fetch_and_lock_next_job()
+            job = fetch_and_lock_next_job(app)
+            print(f"Locked mail: {job.message_id}")
             if not job:
                 time.sleep(poll_interval)
             else:
-                process_job(job)
+                process_job(app, job)
         except Exception as e:
             db.session.rollback()
             print("Job runner exception:", e)
-            time.sleep(1.0)
+            time.sleep(poll_interval)
     print("Job runner thread stopped.")
 
 
-start_job_runner_thread(requeue_stale_jobs, job_runner_loop)
+def start_job_runner_thread(app):
+    print("Requeuing Stale Mails...")
+    with app.app_context():
+        requeue_stale_jobs()
+    global _runner_thread
+    if _runner_thread and _runner_thread.is_alive():
+        return
+    _runner_thread = Thread(target=job_runner_loop, args=(app,), daemon=True)
+    _runner_thread.start()
+
+
+
 
 
 # ----------- HTTP endpoints -------------------------------

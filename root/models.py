@@ -45,6 +45,7 @@ class UserRole(enum.Enum):
     client = "client"
     superuser = "superuser"
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(120), nullable=True)
@@ -186,12 +187,14 @@ class EmailMessage(db.Model):
     mode = db.Column(db.String(20), nullable=False, default="api")
     account_id = db.Column(db.Integer, db.ForeignKey("account.id"), nullable=True)
     account = db.relationship("Account", backref="email_messages")
+    ip_address = db.Column(db.String(20), nullable=True)
     subject = db.Column(db.String(64), nullable=False)
     recipients = db.Column(db.JSON, nullable=True, default=list)
     message = db.Column(db.Text, nullable=True)
     status = db.Column(db.Enum(JobStatus), default=JobStatus.queued, nullable=False)
     callback_url = db.Column(db.Text, nullable=True)
     callback_sent = db.Column(db.Boolean, default=False)
+    result = db.Column(db.JSON, nullable=True, default=dict)
     document_id = db.Column(db.Integer, db.ForeignKey("upload.id"), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.now)
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=datetime.now, default=datetime.now)

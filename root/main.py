@@ -16,6 +16,7 @@ from root.security.request_logger import log_request_data
 from root.routers.client import (
     register_account, register_api, register_me, register_auth
 )
+from root.orchestrator import start_job_runner_thread, stop_flag
 from root.routers.admin.users import register_users
 from root.cli import create_superuser
 from flask_jwt_extended import (
@@ -111,7 +112,7 @@ def index_pricing():
 
 @app.route("/docs", methods=["GET"])
 def api_documentation():
-    return render_template("landing/docs.html")
+    return render_template("landing/documentation.html")
 
 @app.route("/login")
 def login():
@@ -128,9 +129,9 @@ def dashboard():
 def email_accounts():
     return render_template("user/account.html", smtp_hosts=smtp_hosts)
 
-@app.route("/payments", methods=["GET"])
+@app.route("/mails", methods=["GET"])
 def index_payments():
-    return render_template("user/payments.html")
+    return render_template("user/mails.html")
 
 @app.route("/analytics", methods=["GET"])
 def index_analytics():
@@ -145,8 +146,10 @@ def sandbox():
     return render_template("user/sandbox.html")
 
 
-# Graceful shutdown handling for background thread
-stop_flag = {"stop": False}
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("errors/404.html"), 404
+
 
 def handle_sigterm(*args):
     stop_flag["stop"] = True
@@ -192,19 +195,11 @@ def rate_limit_handler(e):
 signal.signal(signal.SIGINT, handle_sigterm)
 signal.signal(signal.SIGTERM, handle_sigterm)
 
-_runner_thread = None
-def start_job_runner_thread(start_func, loop_func):
-    print("Requeuing Jobs...")
-    start_func()
-    global _runner_thread
-    if _runner_thread and _runner_thread.is_alive():
-        return
-    _runner_thread = Thread(target=loop_func, args=(stop_flag,), daemon=True)
-    _runner_thread.start()
 
 with app.app_context():
     db.create_all()
 
+#start_job_runner_thread(app)
 """
 if __name__ == "__main__":
     # Start job runner thread

@@ -1,7 +1,7 @@
 {%extends "landing/base.html"%}
 
-{%block title%}{% endblock %}
-{%block title2%}{% endblock %}
+{%block title%}Platform{% endblock %}
+{%block title2%}Platform{% endblock %}
 
 {% block head %}
 
@@ -40,7 +40,7 @@
             <i class="fas fa-arrow-right"></i>
           </button>
           
-          <a href="/docs" class="px-8 py-4 border border-zinc-700 hover:border-zinc-500 rounded-3xl font-semibold text-lg transition flex items-center gap-3">
+          <a href="/docs" target="_blank" class="px-8 py-4 border border-zinc-700 hover:border-zinc-500 rounded-3xl font-semibold text-lg transition flex items-center gap-3">
             View Docs
           </a>
         </div>
@@ -62,7 +62,7 @@
           <div class="bg-zinc-950 rounded-2xl p-6 font-mono text-sm">
             <div class="text-emerald-400 mb-2">$ curl -X POST https://mx.vorateck.com.ng/api/send-mail</div>
             <pre class="text-zinc-400 overflow-hidden">{
-  "to": "user@example.com",
+  "recipients": ["user@example.com"],
   "subject": "Welcome to VoraMX!",
   "content": "&lt;h1&gt;Hello!&lt;/h1&gt;"
 }</pre>

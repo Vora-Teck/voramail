@@ -73,13 +73,15 @@
                       <span class="nav-label">Overview</span>
                     </a>
                     <a href="/email-accounts" class="dashboard-nav-item pro-act" data-view="projects">
-                      <span class="nav-icon fa fa-android"></span>
+                      <span class="nav-icon fa fa-server"></span>
                       <span class="nav-label">Email Accounts</span>
                     </a>
-                    <a href="/api_usage" class="dashboard-nav-item pay-act" data-view="payments">
-                      <span class="nav-icon fa fa-server"></span>
-                      <span class="nav-label">API Usage</span>
+                    <!--
+                      <a href="/mails" class="dashboard-nav-item mail-act" data-view="payments">
+                      <span class="nav-icon fa fa-envelope"></span>
+                      <span class="nav-label">Email Messages</span>
                     </a>
+                    -->
                     <a href="/analytics" class="dashboard-nav-item ana-act" data-view="analytics">
                       <span class="nav-icon fa fa-bar-chart"></span>
                       <span class="nav-label">Analytics</span>
@@ -175,7 +177,7 @@
                 </header>
 
                 <!-- Dashboard Content -->
-                <div class="dashboard-content">
+                <div class="dashboard-content bg-gray-950">
                     {%block content%}{% endblock %}
                 </div>
 

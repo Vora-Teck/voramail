@@ -109,41 +109,6 @@ def get_public_key():
     return jsonify(data)
 
 
-@profile_bp.route("/webhook", methods=["GET", "POST"])
-@jwt_required()
-@require_active_user
-def get_webhook_data():
-    user = request.current_user
-    if request.method == "GET":
-        datam = {
-            "callback_url": user.callback_url,
-            "ip_whitelist": user.ip_whitelist,
-            "token_warning": user.token_warning,
-            "token_critical": user.token_critical
-        }
-        return jsonify(datam)
-    elif request.method == "POST":
-        data = clean_form(request.json)
-        callback = data["callback_url"]
-        ip = data.get("ip_whitelist", [])
-        token_w = data.get("token_warning", 0)
-        token_c = data.get("token_critical", 0)
-
-        if callback and not is_valid_url(callback):
-            return jsonify(error="Invalid callback URL. Kindly ensure it starts with http:// or https://"), 400
-        ip = [a.strip() for a in ip if a.strip() != ""]
-        ip_list = []
-        if ip:
-            if any([not is_valid_ipv4(i) for i in ip]):
-                return jsonify(error=f"Invalid IP provided"), 400
-            ip_list = [i for i in ip if is_valid_ipv4(i)]
-        user.callback_url = callback
-        user.ip_whitelist = ip_list
-        user.token_warning = int(token_w)
-        user.token_critical = int(token_c)
-        db.session.commit()
-        return jsonify(message="Changes saved!"), 200
-
 @profile_bp.route("/change-password", methods=["POST"])
 @jwt_required()
 @require_active_user

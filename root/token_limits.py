@@ -28,8 +28,6 @@ def token_limited(request):
 
             response = fn(*args, **kwargs)
 
-            user.consume_api()
-            db.session.commit()
 
             return response
         return wrapper

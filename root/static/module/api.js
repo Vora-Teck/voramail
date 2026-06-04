@@ -166,6 +166,15 @@ export async function getAccount(id) {
 export async function updateAccount(id, payload) {
   return await request({ method: 'POST', url: `/accounts/${id}`, data: payload }) 
 }
+export async function deleteAccount(id) {
+  return await request({ method: 'DELETE', url: `/accounts/${id}` }) 
+}
+export async function getMails(id, params) {
+  return await request({ method: 'GET', url: `/accounts/${id}/mails`, params: params }) 
+}
+export async function getMail(mail_id) {
+  return await request({ method: 'GET', url: `/accounts/mails/${mail_id}` }) 
+}
 
 
 

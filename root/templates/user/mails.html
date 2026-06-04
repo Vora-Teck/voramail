@@ -1,0 +1,144 @@
+{%extends "user/base.html"%}
+
+{%block title%}Email Messages{% endblock %}
+{%block title2%}Email Messages{% endblock %}
+
+{%block content%}
+
+
+<div class="modal-con mail-con">
+  <form class="modal-body trans-sub-form" style="max-width:500px;">
+
+    <div class="modal-header trans-head">
+      Mail Details
+    </div>
+
+    <div class="modal-content">
+      <div class="sp-stat text-center mb-3"></div>
+
+      <div class="table-responsive mt-2">
+        <table class="table sub-pay-table">
+          <tbody>
+            <tr>
+              <td>Message ID</td>
+              <td id="sp-id"></td>
+            </tr>
+            <tr>
+              <td>Subject</td>
+              <td id="sp-sub"></td>
+            </tr>
+            <tr>
+              <td>Recipients</td>
+              <td id="sp-rec"></td>
+            </tr>
+            <tr>
+              <td>From</td>
+              <td id="sp-from"></td>
+            </tr>
+            <tr>
+              <td>Account</td>
+              <td id="sp-acc"></td>
+            </tr>
+            <tr>
+              <td>Request Mode</td>
+              <td id="sp-mode"></td>
+            </tr>
+            <tr>
+              <td>Request IP</td>
+              <td class="sp-ip"></td>
+            </tr>
+            <tr>
+              <td>Callback URL</td>
+              <td id="sp-call"></td>
+            </tr>
+            <tr>
+              <td>Date Created</td>
+              <td id="sp-created"></td>
+            </tr>
+            <tr>
+              <td>Updated On</td>
+              <td id="sp-updated"></td>
+            </tr>
+            <tr>
+              <td>Webhook Sent</td>
+              <td id="sp-web"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn canc-btn btn-secondary">Cancel</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="dashboard-view" id="payments">
+  <div class="bg-[#0F1621] border border-gray-800 rounded-lg px-4 py-2 text-sm flex justify-start items-center gap-3">
+    <a class="font-semibold text-md text-white-500" href="/email-accounts">Email Accounts</a>
+    <div>&gt;&gt;</div>
+    <select id="acc_id" class="bg-[#0F1621] border-0 rounded-lg px-4 py-2 text-sm min-w-200">
+    </select>
+    <div>&gt;&gt;</div>
+    <div class="font-semibold text-md text-white-500">Mails</div>
+  </div>
+
+  
+
+  <!-- Recent Activity -->
+  <div class="dashboard-table-container">
+    <div class="table-responsive">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th colspan="3">
+              <h3 class="font-semibold">Mails</h3>
+            </th>
+            <th class="input-con">
+              
+                <select id="status-filter">
+                  <option value="">All Status</option>
+                  <option value="queued">Queued</option>
+                  <option value="running">Running</option>
+                  <option value="completed">Completed</option>
+                  <option value="failed">Failed</option>
+                </select>
+              
+            </th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th class="w-padding-left" style="white-space:nowrap;">Message ID</th>
+            <th class="w-center">Status</th>
+            <th style="white-space:nowrap;">Created At</th>
+            <th style="white-space:nowrap;">Updated At</th>
+          </tr>
+        </thead>
+        <tbody class="mess-list"></tbody>
+      </table>
+    </div>
+
+    
+  </div>
+  <input type="hidden" value="1" id="emp_page">
+  <div class="page_nos mt-3">
+      <a href="#" class="page_no"><i class="fa fa-angle-left"></i></a>
+
+      <a href="#" class="page_no"><i class="fa fa-angle-right"></i></a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="module" src="/static/js/mail.js"></script>
+      <script>
+        $("#dashboardTitle").html(`Email Messages`)
+        $(".pro-act").addClass('active')
+      </script>
+{% endblock %}

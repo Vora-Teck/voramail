@@ -8,8 +8,6 @@ from email.message import EmailMessage
 from email.utils import formataddr
 import html
 import ssl
-from root.extensions import db
-from root.models import JobStatus
 
 
 def image_to_data_url(url):
@@ -115,8 +113,6 @@ def send_api_mail(account, message):
             # =====================================
             # SEND EMAIL
             # =====================================
-            message.status = JobStatus("running")
-            db.session.commit()
             if use_ssl:
                 context = ssl.create_default_context()
                 with smtplib.SMTP_SSL(smtp_host, smtp_port, context=context) as smtp:
@@ -127,10 +123,10 @@ def send_api_mail(account, message):
                     if use_tls: smtp.starttls()
                     smtp.login(smtp_username, smtp_password)
                     smtp.send_message(msg)
-            return jsonify({
+            return {
                 "success": True,
                 "message": "Email sent successfully"
-            })
+            }
         except ValueError as e:
             return {
                 "error": f"Error occurred: {str(e)}",
